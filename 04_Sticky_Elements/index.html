@@ -13,6 +13,10 @@
       box-sizing: border-box;
     }
 
+    :root {
+      --ease-expo-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
     html,
     body {
       margin: 0;
@@ -52,6 +56,7 @@
       gap: 110px 48px;
 
       padding: 88px 64px 56px;
+      border-radius: 16px;
       background: #fff;
     }
 
@@ -114,6 +119,7 @@
       /* フチより下＝ .ball-clip の外に隠れている状態 */
       translate: -50% 80px;
 
+      /* 穴から飛び出し、落下して元の位置に戻る */
       animation: appear 0.8s both;
     }
 
@@ -151,6 +157,7 @@
 
     .ball--red {
       background: #e84b3c;
+      /* トリガーの有効時に、頭から再生する */
       animation-trigger: --red replay;
     }
 
@@ -180,19 +187,18 @@
     ------------------------- */
 
     /*
-     * 穴から飛び出してそのまま落ち、穴に戻る。
-     *
-     * 上りは減速、下りは加速させて放物線を描かせる。
+     * 穴から飛び出して、落下して戻る。
+     * 上りは expo-out で減速し、下りは加速させて放物線にする。
      */
     @keyframes appear {
       0% {
         translate: -50% 80px;
-        animation-timing-function: cubic-bezier(.5, 1, .89, 1);
+        animation-timing-function: var(--ease-expo-out);
       }
 
       50% {
         translate: -50% -10px;
-        animation-timing-function: cubic-bezier(.11, 0, .5, 0);
+        animation-timing-function: cubic-bezier(0.7, 0, 0.84, 0);
       }
 
       100% {
@@ -223,38 +229,23 @@
     }
 
     .story--red {
-      timeline-trigger:
-        --red
-        view()
-        entry 60% cover 40%;
+      timeline-trigger: --red view() entry 40% exit 20%;
     }
 
     .story--orange {
-      timeline-trigger:
-        --orange
-        view()
-        entry 60% cover 40%;
+      timeline-trigger: --orange view() entry 40% exit 20%;
     }
 
     .story--yellow {
-      timeline-trigger:
-        --yellow
-        view()
-        entry 60% cover 40%;
+      timeline-trigger: --yellow view() entry 40% exit 20%;
     }
 
     .story--green {
-      timeline-trigger:
-        --green
-        view()
-        entry 60% cover 40%;
+      timeline-trigger: --green view() entry 40% exit 20%;
     }
 
     .story--blue {
-      timeline-trigger:
-        --blue
-        view()
-        entry 60% cover 40%;
+      timeline-trigger: --blue view() entry 40% exit 20%;
     }
   </style>
 </head>

@@ -17,7 +17,7 @@
       --paper: #fff;
       --ink: #171717;
       --gutter: clamp(24px, 4vw, 64px);
-      --ease-text: cubic-bezier(.16, 1, .3, 1);
+      --ease-expo-out: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     html,
@@ -94,14 +94,15 @@
       padding-inline: 0.08em;
       padding-bottom: 0.15em;
       margin-inline: -0.04em;
-      /* 兄弟順から遅延を計算し、内側の span へ inherit する */
+      /* 兄弟順から遅延を計算し、内側のspanへ渡す */
       animation-delay: calc((sibling-index() - 1) * 0.04s);
     }
 
     .char > span {
       display: block;
 
-      animation: rise 0.8s var(--ease-text) both;
+      /* 1文字ずつ、下から立ち上がる */
+      animation: rise 0.8s var(--ease-expo-out) both;
       animation-trigger: --title play-once;
       animation-delay: inherit;
     }
