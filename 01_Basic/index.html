@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>01 | Basic</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: "Cormorant Garamond", "Times New Roman", Times, serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .spacer,
+    .demo {
+      min-height: 100vh;
+    }
+
+    .spacer {
+      display: grid;
+      place-items: center;
+      background: #fff;
+    }
+
+    .scroll-cue {
+      font-family: "Times New Roman", Times, serif;
+      font-size: 96px;
+      text-align: center;
+    }
+
+    .scroll-cue::after {
+      content: "";
+      display: block;
+      width: 20px;
+      height: 20px;
+      margin: 20px auto 0;
+      border-right: 3px solid currentColor;
+      border-bottom: 3px solid currentColor;
+      transform: rotate(45deg);
+    }
+
+    .demo {
+      display: grid;
+      place-items: center;
+      background: #1a1a1a;
+    }
+
+    .target {
+      color: #fff;
+      font-size: 96px;
+      font-weight: 500;
+      text-align: center;
+      opacity: 1;
+      translate: 0 0;
+      /* view()で表示位置を判定。containで有効化し、coverの範囲外で無効化 */
+      timeline-trigger: --target view() contain / cover;
+      /* トリガーの参照範囲をこの要素内に限定 */
+      trigger-scope: --target;
+      animation: motion 1s both;
+      /* トリガーの有効時は順再生、無効時は逆再生 */
+      animation-trigger: --target play-forwards play-backwards;
+    }
+
+    @keyframes motion {
+      from {
+        opacity: 0;
+        translate: 100px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="spacer">
+    <p class="scroll-cue">Scroll</p>
+  </div>
+  <main class="demo">
+    <p class="target">Animation</p>
+  </main>
+</body>
+</html>

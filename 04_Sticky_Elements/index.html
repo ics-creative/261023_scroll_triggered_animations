@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>04 | Sticky Elements</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+    }
+
+    body {
+      background: #f2f0e9;
+      color: #111;
+      font-family: "Cormorant Garamond", "Times New Roman", Times, serif;
+    }
+
+    .layout {
+      display: grid;
+      justify-content: center;
+      grid-template-columns: auto minmax(10rem, 18vw);
+      column-gap: 5vw;
+    }
+
+    /* -------------------------
+       Left
+    ------------------------- */
+
+    .stage {
+      position: sticky;
+      top: 0;
+
+      display: grid;
+      place-items: center;
+
+      height: 100vh;
+    }
+
+    .holes {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      /* 飛び出したボールが上の列に重ならない高さを確保する */
+      gap: 110px 48px;
+
+      padding: 88px 64px 56px;
+      background: #fff;
+    }
+
+    .slot {
+      position: relative;
+
+      width: 100px;
+      height: 30px;
+    }
+
+    /*
+     * 穴の奥側
+     */
+    .hole {
+      position: absolute;
+      z-index: 1;
+      inset: 0;
+
+      width: 100px;
+      height: 30px;
+
+      border-radius: 50%;
+      background: #181818;
+    }
+
+    /*
+     * ボールの可動域。
+     *
+     * 下端を楕円の中心線（手前側のフチの上端）に合わせる。
+     * ここは楕円がもっとも横に広がる線なので、
+     * 切り取られたボールが楕円の外へはみ出すことがない。
+     *
+     * 穴の底に合わせると、下へ向かって細くなる楕円との間に
+     * 隙間ができてボールの色が覗いてしまう。
+     *
+     * 穴の奥側より前、穴の手前側より後ろ。
+     */
+    .ball-clip {
+      position: absolute;
+      z-index: 2;
+      inset: -160px 0 15px;
+
+      overflow: hidden;
+    }
+
+    /*
+     * ボール
+     */
+    .ball {
+      position: absolute;
+
+      left: 50%;
+      bottom: 0;
+
+      width: 72px;
+      aspect-ratio: 1;
+
+      border-radius: 50%;
+
+      /* フチより下＝ .ball-clip の外に隠れている状態 */
+      translate: -50% 80px;
+
+      animation: appear 0.8s both;
+    }
+
+    /*
+     * 穴の手前側。
+     *
+     * 奥側とまったく同じ楕円を描き、
+     * 下半分だけを切り出してボールの手前に重ねる。
+     */
+    .slot::after {
+      content: "";
+
+      position: absolute;
+      z-index: 3;
+      inset: 0;
+
+      border-radius: 50%;
+      background: #181818;
+
+      clip-path: inset(50% 0 0);
+    }
+
+
+    /* -------------------------
+       Ball colors
+    ------------------------- */
+
+    /*
+     * animation ショートハンドは animation-trigger の指定を
+     * リセットするため、animation より後に指定する。
+     *
+     * replay は再生位置を先頭に戻してから再生するので、
+     * セクションを行き来するたびに頭から繰り返される。
+     */
+
+    .ball--red {
+      background: #e84b3c;
+      animation-trigger: --red replay;
+    }
+
+    .ball--orange {
+      background: #ed922d;
+      animation-trigger: --orange replay;
+    }
+
+    .ball--yellow {
+      background: #e3c938;
+      animation-trigger: --yellow replay;
+    }
+
+    .ball--green {
+      background: #62a75b;
+      animation-trigger: --green replay;
+    }
+
+    .ball--blue {
+      background: #4689e8;
+      animation-trigger: --blue replay;
+    }
+
+
+    /* -------------------------
+       Animation
+    ------------------------- */
+
+    /*
+     * 穴から飛び出してそのまま落ち、穴に戻る。
+     *
+     * 上りは減速、下りは加速させて放物線を描かせる。
+     */
+    @keyframes appear {
+      0% {
+        translate: -50% 80px;
+        animation-timing-function: cubic-bezier(.5, 1, .89, 1);
+      }
+
+      50% {
+        translate: -50% -10px;
+        animation-timing-function: cubic-bezier(.11, 0, .5, 0);
+      }
+
+      100% {
+        translate: -50% 80px;
+      }
+    }
+
+
+    /* -------------------------
+       Right
+    ------------------------- */
+
+    .story {
+      display: grid;
+      place-items: center;
+
+      min-height: 100vh;
+    }
+
+    .story h2 {
+      margin: 0;
+
+      font-size: clamp(2.4rem, 5vw, 4.5rem);
+      font-weight: 500;
+      line-height: .9;
+      letter-spacing: .06em;
+      text-transform: lowercase;
+    }
+
+    .story--red {
+      timeline-trigger:
+        --red
+        view()
+        entry 60% cover 40%;
+    }
+
+    .story--orange {
+      timeline-trigger:
+        --orange
+        view()
+        entry 60% cover 40%;
+    }
+
+    .story--yellow {
+      timeline-trigger:
+        --yellow
+        view()
+        entry 60% cover 40%;
+    }
+
+    .story--green {
+      timeline-trigger:
+        --green
+        view()
+        entry 60% cover 40%;
+    }
+
+    .story--blue {
+      timeline-trigger:
+        --blue
+        view()
+        entry 60% cover 40%;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="layout">
+
+    <div class="stage">
+
+      <div class="holes">
+
+        <div class="slot">
+          <div class="hole"></div>
+          <div class="ball-clip">
+            <div class="ball ball--yellow"></div>
+          </div>
+        </div>
+
+        <div class="slot">
+          <div class="hole"></div>
+        </div>
+
+        <div class="slot">
+          <div class="hole"></div>
+          <div class="ball-clip">
+            <div class="ball ball--orange"></div>
+          </div>
+        </div>
+
+        <div class="slot">
+          <div class="hole"></div>
+        </div>
+
+        <div class="slot">
+          <div class="hole"></div>
+          <div class="ball-clip">
+            <div class="ball ball--red"></div>
+          </div>
+        </div>
+
+        <div class="slot">
+          <div class="hole"></div>
+        </div>
+
+        <div class="slot">
+          <div class="hole"></div>
+          <div class="ball-clip">
+            <div class="ball ball--green"></div>
+          </div>
+        </div>
+
+        <div class="slot">
+          <div class="hole"></div>
+        </div>
+
+        <div class="slot">
+          <div class="hole"></div>
+          <div class="ball-clip">
+            <div class="ball ball--blue"></div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="stories">
+
+      <section class="story">
+        <h2>hole</h2>
+      </section>
+
+      <section class="story story--red">
+        <h2>Red</h2>
+      </section>
+
+      <section class="story story--orange">
+        <h2>Orange</h2>
+      </section>
+
+      <section class="story story--yellow">
+        <h2>Yellow</h2>
+      </section>
+
+      <section class="story story--green">
+        <h2>Green</h2>
+      </section>
+
+      <section class="story story--blue">
+        <h2>Blue</h2>
+      </section>
+
+    </div>
+
+  </main>
+
+</body>
+</html>

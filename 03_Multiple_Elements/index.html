@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>03 | Multiple Elements</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --paper: #eee9df;
+      --ink: #171717;
+      --gutter: clamp(24px, 4vw, 64px);
+      --ease-out: cubic-bezier(.22, 1, .36, 1);
+      --ease-text: cubic-bezier(.16, 1, .3, 1);
+      /* 短い時間でも緩急が残るよう、出入を強めに取る */
+      --ease-draw: cubic-bezier(.75, 0, .08, 1);
+    }
+
+    html,
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Cormorant Garamond", "Times New Roman", Times, serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* 行マスク。1行ずつ下から立ち上げる共通パーツ */
+    .line {
+      display: block;
+      overflow: hidden;
+    }
+
+    .line > span {
+      display: block;
+    }
+
+    /* --------------------------------
+     * Intro
+     * ----------------------------- */
+
+    .intro {
+      display: grid;
+      grid-template-rows: 1fr auto;
+      min-height: 100svh;
+      padding: var(--gutter);
+
+      animation: intro-leave linear both;
+      animation-timeline: view();
+      animation-range: exit 0% exit 100%;
+    }
+
+    .intro__title {
+      align-self: center;
+      justify-self: center;
+      margin: 0;
+      font-size: clamp(4.8rem, 16vw, 16rem);
+      font-weight: 500;
+      line-height: 0.82;
+      letter-spacing: -0.06em;
+    }
+
+    .intro__title .line > span {
+      animation: rise 1.3s 0.15s var(--ease-text) both;
+    }
+
+    .intro__scroll {
+      justify-self: center;
+      margin: 0;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-align: center;
+
+      animation: from-below 1.5s 0.6s var(--ease-out) both;
+    }
+
+    .intro__scroll::after {
+      content: "";
+      display: block;
+      width: 1px;
+      height: 56px;
+      margin: 14px auto 0;
+      background: linear-gradient(var(--ink), transparent);
+      transform-origin: top;
+
+      animation: scroll-hint 2.2s 1.2s ease-in-out infinite;
+    }
+
+    /* --------------------------------
+     * Work
+     * ----------------------------- */
+
+    .work {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      column-gap: clamp(32px, 5vw, 80px);
+      align-items: center;
+      min-height: 100svh;
+      padding: var(--gutter);
+
+      /*
+       * hidden ではなく clip。
+       * hidden はスクロールコンテナを作ってしまい、
+       * 内側の view() が祖先要素を基準にしてしまう。
+       */
+      overflow: clip;
+
+      timeline-trigger:
+        --work-trigger
+        view()
+        entry 60% cover 40%;
+    }
+
+    /* --------------------------------
+     * Visual
+     * ----------------------------- */
+
+    .work__visual {
+      position: relative;
+      justify-self: center;
+      width: 100%;
+      max-width: min(44vw, 520px);
+      aspect-ratio: 4 / 5;
+    }
+
+    /*
+     * 画像を囲む 1px の枠。
+     *
+     * 左上と右下の L 字を別々に描き、
+     * 角から伸びて一枚の矩形になる。
+     */
+    .work__visual::before,
+    .work__visual::after {
+      content: "";
+      position: absolute;
+      z-index: 3;
+      inset: 0;
+      pointer-events: none;
+
+      animation-duration: 1.35s;
+      animation-timing-function: var(--ease-draw);
+      animation-fill-mode: both;
+      animation-trigger: --work-trigger play-forwards;
+    }
+
+    .work__visual::before {
+      border-top: 1px solid #171717;
+      border-left: 1px solid #171717;
+      animation-name: border-from-tl;
+      animation-delay: 0.2s;
+    }
+
+    .work__visual::after {
+      border-right: 1px solid #171717;
+      border-bottom: 1px solid #171717;
+      animation-name: border-from-br;
+      animation-delay: 0.3s;
+    }
+
+    /* 画像のマスク枠。左から徐々に現れる演出はこの要素が担当する */
+    .work__frame {
+      position: absolute;
+      inset: 0;
+      overflow: clip;
+
+      animation:
+        reveal-frame 1.4s var(--ease-out) both,
+        image-focus 1.8s var(--ease-out) both;
+      animation-trigger: --work-trigger play-forwards;
+    }
+
+    /*
+     * 写真。
+     *
+     * 枠より大きくして、
+     * スクロール連動のパララックスで動かす余裕を作る。
+     * 移動量より一回り大きくして、端が欠けないようにする。
+     */
+    .work__image {
+      position: absolute;
+      inset: -18%;
+      width: calc(100% + 36%);
+      height: calc(100% + 36%);
+      object-fit: cover;
+      object-position: 50% 40%;
+
+      animation: image-drift linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+
+    /* 写真の上に薄い周辺減光を重ねる */
+    .work__frame::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(120% 90% at 50% 40%, transparent 55%, rgb(23 23 23 / 18%));
+      pointer-events: none;
+    }
+
+    /* --------------------------------
+     * Number
+     * ----------------------------- */
+
+    .work__number {
+      position: absolute;
+      top: -0.1em;
+      left: -0.34em;
+      z-index: 2;
+
+      color: #fff;
+      font-size: clamp(4.6rem, 9vw, 10rem);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.07em;
+      mix-blend-mode: difference;
+
+      animation: from-above 1.8s 0.15s var(--ease-out) both;
+      animation-trigger: --work-trigger play-forwards;
+    }
+
+    /* --------------------------------
+     * Content
+     * ----------------------------- */
+
+    .work__content {
+      max-width: 30rem;
+    }
+
+    .work__category {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 0 0 clamp(20px, 3vh, 32px);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+
+      animation: from-right 1.35s 0.3s var(--ease-out) both;
+      animation-trigger: --work-trigger play-forwards;
+    }
+
+    .work__category::before {
+      content: "";
+      width: 32px;
+      height: 1px;
+      background: currentColor;
+    }
+
+    .work__title {
+      margin: 0;
+      font-size: clamp(3.2rem, 6.2vw, 7rem);
+      font-weight: 500;
+      line-height: 0.92;
+      letter-spacing: -0.045em;
+    }
+
+    .work__title .line > span {
+      animation: rise-focus 1.25s var(--ease-text) both;
+      animation-trigger: --work-trigger play-forwards;
+    }
+
+    .work__title .line:nth-child(1) > span {
+      animation-delay: 0.4s;
+    }
+
+    .work__title .line:nth-child(2) > span {
+      animation-delay: 0.52s;
+    }
+
+    .work__description {
+      margin: clamp(26px, 4vh, 44px) 0 0;
+      color: #2c2924;
+      font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+      font-weight: 500;
+      line-height: 1.8;
+
+      animation: from-left 1.45s 0.75s var(--ease-out) both;
+      animation-trigger: --work-trigger play-forwards;
+    }
+
+    /* --------------------------------
+     * Animations
+     * ----------------------------- */
+
+    @keyframes intro-leave {
+      from {
+        opacity: 1;
+        translate: 0;
+      }
+
+      to {
+        opacity: 0;
+        translate: 0 -10vh;
+      }
+    }
+
+    @keyframes rise {
+      from {
+        translate: 0 110%;
+      }
+
+      to {
+        translate: 0 0;
+      }
+    }
+
+    @keyframes rise-focus {
+      from {
+        translate: 0 110%;
+        filter: blur(12px);
+      }
+
+      to {
+        translate: 0 0;
+        filter: blur(0);
+      }
+    }
+
+    /*
+     * 要素ごとに寄ってくる向きを変える。
+     * 移動量は、見出しなど大きい要素ほど大きめ。
+     *
+     * 距離が短いほど再生時間を長くして、
+     * 一瞬で終わったように見えないようにしている。
+     */
+
+    @keyframes from-below {
+      from {
+        opacity: 0;
+        translate: 0 24px;
+      }
+
+      to {
+        opacity: 1;
+        translate: 0;
+      }
+    }
+
+    @keyframes from-above {
+      from {
+        opacity: 0;
+        translate: 0 -88px;
+      }
+
+      to {
+        opacity: 1;
+        translate: 0;
+      }
+    }
+
+    @keyframes from-right {
+      from {
+        opacity: 0;
+        translate: 48px 0;
+      }
+
+      to {
+        opacity: 1;
+        translate: 0;
+      }
+    }
+
+    @keyframes from-left {
+      from {
+        opacity: 0;
+        translate: -40px 0;
+      }
+
+      to {
+        opacity: 1;
+        translate: 0;
+      }
+    }
+
+    @keyframes scroll-hint {
+      0% {
+        opacity: 0;
+        scale: 1 0.1;
+      }
+
+      40% {
+        opacity: 1;
+        scale: 1 1;
+      }
+
+      100% {
+        opacity: 0;
+        scale: 1 0.1;
+        translate: 0 50px;
+      }
+    }
+
+    /* 右の辺を 100% 削った状態から、左の辺を起点に開く */
+    @keyframes reveal-frame {
+      from {
+        clip-path: inset(0 100% 0 0);
+      }
+
+      to {
+        clip-path: inset(0);
+      }
+    }
+
+    @keyframes image-drift {
+      from {
+        translate: 0 -14%;
+      }
+
+      to {
+        translate: 0 14%;
+      }
+    }
+
+    @keyframes image-focus {
+      from {
+        filter: blur(18px);
+      }
+
+      to {
+        filter: blur(0);
+      }
+    }
+
+    @keyframes border-from-tl {
+      from {
+        clip-path: inset(0 100% 100% 0);
+      }
+
+      to {
+        clip-path: inset(0);
+      }
+    }
+
+    @keyframes border-from-br {
+      from {
+        clip-path: inset(100% 0 0 100%);
+      }
+
+      to {
+        clip-path: inset(0);
+      }
+    }
+
+    /* --------------------------------
+     * Narrow screens
+     * ----------------------------- */
+
+    @media (width < 900px) {
+      .work {
+        grid-template-columns: minmax(0, 1fr);
+        row-gap: clamp(40px, 7vh, 72px);
+        align-content: center;
+        padding-bottom: calc(var(--gutter) * 2.5);
+      }
+
+      .work__visual {
+        justify-self: start;
+        max-width: min(78vw, 420px);
+      }
+
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .intro,
+      .intro *,
+      .work * {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="intro">
+    <h1 class="intro__title">
+      <span class="line"><span>Flowers</span></span>
+    </h1>
+
+    <p class="intro__scroll">Scroll</p>
+  </header>
+
+  <main>
+    <section class="work work--01">
+      <div class="work__visual">
+        <div class="work__frame">
+          <img
+            class="work__image"
+            src="images/zoe-richardson-oy7NjnG-CK4-unsplash.jpg"
+            alt="Pink and yellow tulips against a pale background"
+          >
+        </div>
+
+        <div class="work__number">01</div>
+      </div>
+
+      <div class="work__content">
+        <p class="work__category">Brand Identity</p>
+
+        <h2 class="work__title">
+          <span class="line"><span>Form &amp;</span></span>
+          <span class="line"><span>Function</span></span>
+        </h2>
+
+        <p class="work__description">
+          A visual identity shaped by structure, rhythm, and the beauty
+          found in everyday objects.
+        </p>
+      </div>
+    </section>
+
+    <section class="work work--02">
+      <div class="work__visual">
+        <div class="work__frame">
+          <img
+            class="work__image"
+            src="images/jason-leung-7R9f3MBCdTM-unsplash.jpg"
+            alt="Cream tulips catching afternoon light"
+          >
+        </div>
+
+        <div class="work__number">02</div>
+      </div>
+
+      <div class="work__content">
+        <p class="work__category">Digital Experience</p>
+
+        <h2 class="work__title">
+          <span class="line"><span>Light &amp;</span></span>
+          <span class="line"><span>Motion</span></span>
+        </h2>
+
+        <p class="work__description">
+          An interactive experience exploring the relationship between
+          light, space, and digital movement.
+        </p>
+      </div>
+    </section>
+
+    <section class="work work--03">
+      <div class="work__visual">
+        <div class="work__frame">
+          <img
+            class="work__image"
+            src="images/andrey-petrov-uWcDA6wfB5Q-unsplash.jpg"
+            alt="A quiet cluster of white tulips"
+          >
+        </div>
+
+        <div class="work__number">03</div>
+      </div>
+
+      <div class="work__content">
+        <p class="work__category">Photography</p>
+
+        <h2 class="work__title">
+          <span class="line"><span>Quiet</span></span>
+          <span class="line"><span>Hours</span></span>
+        </h2>
+
+        <p class="work__description">
+          A photographic study of quiet moments, empty streets, and
+          fading afternoon light.
+        </p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
