@@ -84,7 +84,7 @@
         text-align: center;
         opacity: 1;
         translate: 0 0;
-        /* view()で表示位置を判定。containで有効化し、coverの範囲外で無効化 */
+        /* 要素全体が画面内に入ると有効化し、画面から完全に出ると無効化 */
         timeline-trigger: --target view() contain / cover;
         /* 通常の時間ベースのアニメーション */
         animation: motion 1s var(--ease-expo-out) both;
