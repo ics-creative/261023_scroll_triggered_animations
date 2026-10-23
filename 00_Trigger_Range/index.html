@@ -43,7 +43,7 @@
       min-height: 220vh;
     }
 
-    /* view(block 25% 25%) が判定する中央50%の領域を表示 */
+    /* view(25%) が判定する中央50%の領域を表示 */
     .active-zone {
       position: fixed;
       z-index: 0;
@@ -75,7 +75,7 @@
       translate: -50% 0;
 
       /* 図形自身が中央の帯に完全に入ると有効、完全に出ると無効 */
-      timeline-trigger: --range view(block 25% 25%) contain / cover;
+      timeline-trigger: --range view(25%) contain / cover;
       animation: morph .45s ease-in-out both;
       animation-trigger: --range play-forwards play-backwards;
     }
