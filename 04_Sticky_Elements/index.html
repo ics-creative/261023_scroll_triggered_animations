@@ -43,10 +43,10 @@
       font-family: sans-serif;
       line-height: 1.8;
       text-align: center;
-    }
 
-    .browser-support-message p {
-      margin: 0;
+      & p {
+        margin: 0;
+      }
     }
 
     @supports (animation-trigger: --demo play-forwards) {
@@ -91,6 +91,25 @@
 
       width: 100px;
       height: 30px;
+
+      /*
+       * 穴の手前側。
+       *
+       * 奥側とまったく同じ楕円を描き、
+       * 下半分だけを切り出してボールの手前に重ねる。
+       */
+      &::after {
+        content: "";
+
+        position: absolute;
+        z-index: 3;
+        inset: 0;
+
+        border-radius: 50%;
+        background: #181818;
+
+        clip-path: inset(50% 0 0);
+      }
     }
 
     /*
@@ -147,64 +166,39 @@
 
       /* 穴から飛び出し、落下して元の位置に戻る */
       animation: appear 0.8s both;
-    }
 
-    /*
-     * 穴の手前側。
-     *
-     * 奥側とまったく同じ楕円を描き、
-     * 下半分だけを切り出してボールの手前に重ねる。
-     */
-    .slot::after {
-      content: "";
+      /*
+       * animation ショートハンドは animation-trigger の指定を
+       * リセットするため、animation より後に指定する。
+       *
+       * replay は再生位置を先頭に戻してから再生するので、
+       * セクションを行き来するたびに頭から繰り返される。
+       */
+      &.ball--red {
+        background: #e84b3c;
+        /* トリガーの有効時に、頭から再生する */
+        animation-trigger: --red replay;
+      }
 
-      position: absolute;
-      z-index: 3;
-      inset: 0;
+      &.ball--orange {
+        background: #ed922d;
+        animation-trigger: --orange replay;
+      }
 
-      border-radius: 50%;
-      background: #181818;
+      &.ball--yellow {
+        background: #e3c938;
+        animation-trigger: --yellow replay;
+      }
 
-      clip-path: inset(50% 0 0);
-    }
+      &.ball--green {
+        background: #62a75b;
+        animation-trigger: --green replay;
+      }
 
-
-    /* -------------------------
-       Ball colors
-    ------------------------- */
-
-    /*
-     * animation ショートハンドは animation-trigger の指定を
-     * リセットするため、animation より後に指定する。
-     *
-     * replay は再生位置を先頭に戻してから再生するので、
-     * セクションを行き来するたびに頭から繰り返される。
-     */
-
-    .ball--red {
-      background: #e84b3c;
-      /* トリガーの有効時に、頭から再生する */
-      animation-trigger: --red replay;
-    }
-
-    .ball--orange {
-      background: #ed922d;
-      animation-trigger: --orange replay;
-    }
-
-    .ball--yellow {
-      background: #e3c938;
-      animation-trigger: --yellow replay;
-    }
-
-    .ball--green {
-      background: #62a75b;
-      animation-trigger: --green replay;
-    }
-
-    .ball--blue {
-      background: #4689e8;
-      animation-trigger: --blue replay;
+      &.ball--blue {
+        background: #4689e8;
+        animation-trigger: --blue replay;
+      }
     }
 
 
@@ -242,36 +236,36 @@
       place-items: center;
 
       min-height: 100vh;
-    }
 
-    .story h2 {
-      margin: 0;
+      & h2 {
+        margin: 0;
 
-      font-size: clamp(2.4rem, 5vw, 4.5rem);
-      font-weight: 500;
-      line-height: .9;
-      letter-spacing: .06em;
-      text-transform: lowercase;
-    }
+        font-size: clamp(2.4rem, 5vw, 4.5rem);
+        font-weight: 500;
+        line-height: .9;
+        letter-spacing: .06em;
+        text-transform: lowercase;
+      }
 
-    .story--red {
-      timeline-trigger: --red view() entry 40% exit 20%;
-    }
+      &.story--red {
+        timeline-trigger: --red view() entry 40% exit 20%;
+      }
 
-    .story--orange {
-      timeline-trigger: --orange view() entry 40% exit 20%;
-    }
+      &.story--orange {
+        timeline-trigger: --orange view() entry 40% exit 20%;
+      }
 
-    .story--yellow {
-      timeline-trigger: --yellow view() entry 40% exit 20%;
-    }
+      &.story--yellow {
+        timeline-trigger: --yellow view() entry 40% exit 20%;
+      }
 
-    .story--green {
-      timeline-trigger: --green view() entry 40% exit 20%;
-    }
+      &.story--green {
+        timeline-trigger: --green view() entry 40% exit 20%;
+      }
 
-    .story--blue {
-      timeline-trigger: --blue view() entry 40% exit 20%;
+      &.story--blue {
+        timeline-trigger: --blue view() entry 40% exit 20%;
+      }
     }
   </style>
 </head>

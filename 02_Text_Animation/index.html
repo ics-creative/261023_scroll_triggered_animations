@@ -43,10 +43,10 @@
       font-family: sans-serif;
       line-height: 1.8;
       text-align: center;
-    }
 
-    .browser-support-message p {
-      margin: 0;
+      & p {
+        margin: 0;
+      }
     }
 
     @supports (animation-trigger: --demo play-forwards) {
@@ -63,23 +63,23 @@
       display: grid;
       place-items: center;
       background: #fff;
-    }
 
-    .scroll-cue {
-      font-family: "Times New Roman", Times, serif;
-      font-size: 96px;
-      text-align: center;
-    }
+      & .scroll-cue {
+        font-family: "Times New Roman", Times, serif;
+        font-size: 96px;
+        text-align: center;
 
-    .scroll-cue::after {
-      content: "";
-      display: block;
-      width: 28px;
-      height: 28px;
-      margin: 20px auto 0;
-      border-right: 2px solid currentColor;
-      border-bottom: 2px solid currentColor;
-      transform: rotate(45deg);
+        &::after {
+          content: "";
+          display: block;
+          width: 28px;
+          height: 28px;
+          margin: 20px auto 0;
+          border-right: 2px solid currentColor;
+          border-bottom: 2px solid currentColor;
+          rotate: 45deg;
+        }
+      }
     }
 
     .frame {
@@ -88,11 +88,11 @@
       padding: var(--gutter);
       background: #1a1a1a;
       color: #fff;
-    }
 
-    .frame--paper {
-      background: var(--paper);
-      color: var(--ink);
+      &.frame--paper {
+        background: var(--paper);
+        color: var(--ink);
+      }
     }
 
     .hero {
@@ -121,26 +121,20 @@
       margin-inline: -0.04em;
       /* 兄弟順から遅延を計算し、内側のspanへ渡す */
       animation-delay: calc((sibling-index() - 1) * 0.04s);
-    }
 
-    .char > span {
-      display: block;
+      & > span {
+        display: block;
 
-      /* 1文字ずつ、下から立ち上がる */
-      animation: rise 0.8s var(--ease-expo-out) both;
-      animation-trigger: --title play-once;
-      animation-delay: inherit;
+        /* 1文字ずつ、下から立ち上がる */
+        animation: rise 0.8s var(--ease-expo-out) both;
+        animation-trigger: --title play-once;
+        animation-delay: inherit;
+      }
     }
 
     @keyframes rise {
       from {
         translate: 0 100%;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .hero * {
-        animation: none;
       }
     }
   </style>

@@ -43,10 +43,10 @@
       font-family: sans-serif;
       line-height: 1.8;
       text-align: center;
-    }
 
-    .browser-support-message p {
-      margin: 0;
+      & p {
+        margin: 0;
+      }
     }
 
     @supports (animation-trigger: --demo play-forwards) {
@@ -61,10 +61,10 @@
       /* セリフやディセンダーのはみ出しを切らないよう余白を持たせる */
       padding-inline: 0.08em;
       padding-block: 0.1em 0.18em;
-    }
 
-    .line > span {
-      display: block;
+      & > span {
+        display: block;
+      }
     }
 
     /* --------------------------------
@@ -90,10 +90,10 @@
       font-weight: 500;
       line-height: 1.1;
       letter-spacing: -0.04em;
-    }
 
-    .intro__title .line > span {
-      animation: rise 1.3s 0.15s var(--ease-expo-out) both;
+      & .line > span {
+        animation: rise 1.3s 0.15s var(--ease-expo-out) both;
+      }
     }
 
     .intro__scroll {
@@ -106,18 +106,18 @@
       text-align: center;
 
       animation: from-below 1.5s 0.6s var(--ease-expo-out) both;
-    }
 
-    .intro__scroll::after {
-      content: "";
-      display: block;
-      width: 1px;
-      height: 56px;
-      margin: 14px auto 0;
-      background: linear-gradient(var(--ink), transparent);
-      transform-origin: top;
+      &::after {
+        content: "";
+        display: block;
+        width: 1px;
+        height: 56px;
+        margin: 14px auto 0;
+        background: linear-gradient(var(--ink), transparent);
+        transform-origin: top;
 
-      animation: scroll-hint 2.2s 1.2s ease-in-out infinite;
+        animation: scroll-hint 2.2s 1.2s ease-in-out infinite;
+      }
     }
 
     /* --------------------------------
@@ -146,6 +146,13 @@
       timeline-trigger: --work-trigger view() entry 60% cover 40%;
       /* トリガーの参照範囲をこの要素内に限定 */
       trigger-scope: --work-trigger;
+
+      @media (width < 900px) {
+        grid-template-columns: minmax(0, 1fr);
+        row-gap: clamp(40px, 7vh, 72px);
+        align-content: center;
+        padding-bottom: calc(var(--gutter) * 2.5);
+      }
     }
 
     /* --------------------------------
@@ -158,40 +165,45 @@
       width: 100%;
       max-width: min(44vw, 520px);
       aspect-ratio: 4 / 5;
-    }
 
-    /*
-     * 画像を囲む 1px の枠。
-     *
-     * 左上と右下の L 字を別々に描き、
-     * 角から伸びて一枚の矩形になる。
-     */
-    .work__visual::before,
-    .work__visual::after {
-      content: "";
-      position: absolute;
-      z-index: 3;
-      inset: 0;
-      pointer-events: none;
+      @media (width < 900px) {
+        justify-self: start;
+        max-width: min(78vw, 420px);
+      }
 
-      animation-duration: 1.35s;
-      animation-timing-function: var(--ease-expo-out);
-      animation-fill-mode: both;
-      animation-trigger: --work-trigger play-forwards;
-    }
+      /*
+       * 画像を囲む 1px の枠。
+       *
+       * 左上と右下の L 字を別々に描き、
+       * 角から伸びて一枚の矩形になる。
+       */
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        z-index: 3;
+        inset: 0;
+        pointer-events: none;
 
-    .work__visual::before {
-      border-top: 1px solid #171717;
-      border-left: 1px solid #171717;
-      animation-name: border-from-tl;
-      animation-delay: 0.2s;
-    }
+        animation-duration: 1.35s;
+        animation-timing-function: var(--ease-expo-out);
+        animation-fill-mode: both;
+        animation-trigger: --work-trigger play-forwards;
+      }
 
-    .work__visual::after {
-      border-right: 1px solid #171717;
-      border-bottom: 1px solid #171717;
-      animation-name: border-from-br;
-      animation-delay: 0.3s;
+      &::before {
+        border-top: 1px solid #171717;
+        border-left: 1px solid #171717;
+        animation-name: border-from-tl;
+        animation-delay: 0.2s;
+      }
+
+      &::after {
+        border-right: 1px solid #171717;
+        border-bottom: 1px solid #171717;
+        animation-name: border-from-br;
+        animation-delay: 0.3s;
+      }
     }
 
     /* 写真を左から徐々に表示する */
@@ -203,6 +215,15 @@
       animation: reveal-frame 1.4s var(--ease-expo-out) both;
       /* トリガーの有効時は順再生。無効時は何もしない */
       animation-trigger: --work-trigger play-forwards;
+
+      /* 写真の上に薄い周辺減光を重ねる */
+      &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(120% 90% at 50% 40%, transparent 55%, rgb(23 23 23 / 18%));
+        pointer-events: none;
+      }
     }
 
     /*
@@ -224,15 +245,6 @@
       animation: image-drift linear both;
       animation-timeline: view();
       animation-range: cover 0% cover 100%;
-    }
-
-    /* 写真の上に薄い周辺減光を重ねる */
-    .work__frame::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(120% 90% at 50% 40%, transparent 55%, rgb(23 23 23 / 18%));
-      pointer-events: none;
     }
 
     /* --------------------------------
@@ -276,13 +288,13 @@
 
       animation: from-right 1.35s 0.3s var(--ease-expo-out) both;
       animation-trigger: --work-trigger play-forwards;
-    }
 
-    .work__category::before {
-      content: "";
-      width: 32px;
-      height: 1px;
-      background: currentColor;
+      &::before {
+        content: "";
+        width: 32px;
+        height: 1px;
+        background: currentColor;
+      }
     }
 
     .work__title {
@@ -291,20 +303,20 @@
       font-weight: 500;
       line-height: 1.12;
       letter-spacing: -0.03em;
-    }
 
-    .work__title .line > span {
-      /* 見出しを1行ずつ下から表示 */
-      animation: rise-focus 1.25s var(--ease-expo-out) both;
-      animation-trigger: --work-trigger play-forwards;
-    }
+      & .line > span {
+        /* 見出しを1行ずつ下から表示 */
+        animation: rise-focus 1.25s var(--ease-expo-out) both;
+        animation-trigger: --work-trigger play-forwards;
+      }
 
-    .work__title .line:nth-child(1) > span {
-      animation-delay: 0.4s;
-    }
+      & .line:nth-child(1) > span {
+        animation-delay: 0.4s;
+      }
 
-    .work__title .line:nth-child(2) > span {
-      animation-delay: 0.52s;
+      & .line:nth-child(2) > span {
+        animation-delay: 0.52s;
+      }
     }
 
     .work__description {
@@ -471,32 +483,6 @@
       }
     }
 
-    /* --------------------------------
-     * Narrow screens
-     * ----------------------------- */
-
-    @media (width < 900px) {
-      .work {
-        grid-template-columns: minmax(0, 1fr);
-        row-gap: clamp(40px, 7vh, 72px);
-        align-content: center;
-        padding-bottom: calc(var(--gutter) * 2.5);
-      }
-
-      .work__visual {
-        justify-self: start;
-        max-width: min(78vw, 420px);
-      }
-
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .intro,
-      .intro *,
-      .work * {
-        animation: none;
-      }
-    }
   </style>
 </head>
 
