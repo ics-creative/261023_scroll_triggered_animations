@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>00 | Trigger Range</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #f6f5f1;
+    }
+
+    .demo-content { display: none; }
+
+    .browser-support-message {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      min-height: 100vh;
+      padding: 24px;
+      font-family: sans-serif;
+      line-height: 1.8;
+      text-align: center;
+
+      & p {
+        margin: 0;
+      }
+    }
+
+    @supports (animation-trigger: --demo play-forwards) {
+      .demo-content { display: block; }
+      .browser-support-message { display: none; }
+    }
+
+    .demo-content {
+      position: relative;
+      min-height: 220vh;
+    }
+
+    /* view(block 25% 25%) が判定する中央50%の領域を表示 */
+    .active-zone {
+      position: fixed;
+      z-index: 0;
+      top: 25%;
+      right: 0;
+      bottom: 25%;
+      left: 0;
+      border-top: 2px dashed #4c9b79;
+      border-bottom: 2px dashed #4c9b79;
+      background: repeating-linear-gradient(
+        135deg,
+        #e7f3eb 0,
+        #e7f3eb 14px,
+        #edf7ef 14px,
+        #edf7ef 28px
+      );
+      pointer-events: none;
+    }
+
+    .shape {
+      position: absolute;
+      z-index: 1;
+      top: 77vh;
+      left: 50%;
+      width: min(180px, 20vh);
+      aspect-ratio: 1;
+      border-radius: 12px;
+      background: #4557a1;
+      translate: -50% 0;
+
+      /* 図形自身が中央の帯に完全に入ると有効、完全に出ると無効 */
+      timeline-trigger: --range view(block 25% 25%) contain / cover;
+      animation: morph .45s ease-in-out both;
+      animation-trigger: --range play-forwards play-backwards;
+    }
+
+    @keyframes morph {
+      to {
+        border-radius: 50%;
+        background: #e56347;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="browser-support-message">
+    <p lang="ja">お使いのブラウザはスクロールトリガーアニメーションに対応していません。<br>Chrome・Edge 146以上で閲覧してください。</p>
+    <p lang="en">Your browser does not support scroll-triggered animations.<br>Please view this page using Chrome or Edge 146 or later.</p>
+  </div>
+
+  <main class="demo-content" aria-label="中央の色付きエリアを通過すると形が変わる図形のデモ">
+    <div class="active-zone" aria-hidden="true"></div>
+    <div class="shape" aria-hidden="true"></div>
+  </main>
+</body>
+</html>
