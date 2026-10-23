@@ -54,6 +54,75 @@
       .browser-support-message { display: none; }
     }
 
+    .boundary-toggle {
+      position: fixed;
+      z-index: 10;
+      top: 16px;
+      right: 16px;
+
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+
+      border: 1px solid #b6b3aa;
+      border-radius: 8px;
+      background: #fff;
+      font: 14px sans-serif;
+      cursor: pointer;
+
+      & input {
+        margin: 0;
+        accent-color: #111;
+      }
+    }
+
+    .demo-content:has(#show-boundaries:checked) .story {
+      outline: 2px dashed #986828;
+      outline-offset: -2px;
+    }
+
+    .range-guides {
+      position: fixed;
+      z-index: 9;
+      inset: 0;
+      display: none;
+      pointer-events: none;
+    }
+
+    .demo-content:has(#show-boundaries:checked) .range-guides {
+      display: block;
+    }
+
+    .range-guide {
+      position: absolute;
+      right: 0;
+      left: 0;
+      border-top: 2px dashed var(--guide-color);
+
+      & span {
+        position: absolute;
+        top: 4px;
+        right: 16px;
+        padding: 3px 6px;
+        border-radius: 4px;
+        background: #fff;
+        color: var(--guide-color);
+        font: 700 12px/1.2 sans-serif;
+      }
+    }
+
+    /* .story は画面以上の高さなので、上端と下端が通る位置を示せる */
+    .range-guide--entry {
+      top: 60%;
+      --guide-color: #216b4a;
+    }
+
+    .range-guide--exit {
+      top: 80%;
+      --guide-color: #a34232;
+    }
+
     .layout {
       display: grid;
       justify-content: center;
@@ -176,7 +245,7 @@
        */
       &.ball--red {
         background: #e84b3c;
-        /* トリガーの有効時に、頭から再生する */
+        /* トリガーが有効になるたびに、頭から再生する */
         animation-trigger: --red replay;
       }
 
@@ -248,6 +317,9 @@
       }
 
       &.story--red {
+        /* entry 40%：上端が画面下から40%に来る位置 */
+        /* exit 20%：下端が画面下から20%に来る位置 */
+        /* この範囲に入ると有効、出ると無効。戻って入れば再び有効 */
         timeline-trigger: --red view() entry 40% exit 20%;
       }
 
@@ -277,6 +349,16 @@
     <p lang="en">Your browser does not support scroll-triggered animations.<br>Please view this page using Chrome or Edge 146 or later.</p>
   </div>
   <div class="demo-content">
+
+  <label class="boundary-toggle">
+    <input id="show-boundaries" type="checkbox">
+    境界線と目印を表示
+  </label>
+
+  <div class="range-guides" aria-hidden="true">
+    <div class="range-guide range-guide--entry"><span>entry 40%：上端</span></div>
+    <div class="range-guide range-guide--exit"><span>exit 20%：下端</span></div>
+  </div>
 
   <main class="layout">
 
