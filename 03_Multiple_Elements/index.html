@@ -49,7 +49,7 @@
       }
     }
 
-    @supports (animation-trigger: --demo play-forwards) {
+    @supports (animation-trigger: --demo play-once) {
       .demo-content { display: block; }
       .browser-support-message { display: none; }
     }
@@ -143,7 +143,7 @@
       overflow-clip-margin: 4rem;
 
       /* セクションが画面に入る位置でトリガーを有効化 */
-      timeline-trigger: --work-trigger view() entry 60% cover 40%;
+      timeline-trigger: --work-trigger view() entry 60% cover;
       /* トリガーの参照範囲をこの要素内に限定 */
       trigger-scope: --work-trigger;
 
@@ -188,7 +188,7 @@
         animation-duration: 1.35s;
         animation-timing-function: var(--ease-expo-out);
         animation-fill-mode: both;
-        animation-trigger: --work-trigger play-forwards;
+        animation-trigger: --work-trigger play-once;
       }
 
       &::before {
@@ -214,7 +214,7 @@
 
       animation: reveal-frame 1.4s var(--ease-expo-out) both;
       /* トリガーの有効時は順再生。無効時は何もしない */
-      animation-trigger: --work-trigger play-forwards;
+      animation-trigger: --work-trigger play-once;
 
       /* 写真の上に薄い周辺減光を重ねる */
       &::after {
@@ -265,7 +265,7 @@
       mix-blend-mode: difference;
 
       animation: from-above 1.8s 0.15s var(--ease-expo-out) both;
-      animation-trigger: --work-trigger play-forwards;
+      animation-trigger: --work-trigger play-once;
     }
 
     /* --------------------------------
@@ -287,7 +287,7 @@
       text-transform: uppercase;
 
       animation: from-right 1.35s 0.3s var(--ease-expo-out) both;
-      animation-trigger: --work-trigger play-forwards;
+      animation-trigger: --work-trigger play-once;
 
       &::before {
         content: "";
@@ -307,7 +307,7 @@
       & .line > span {
         /* 見出しを1行ずつ下から表示 */
         animation: rise-focus 1.25s var(--ease-expo-out) both;
-        animation-trigger: --work-trigger play-forwards;
+        animation-trigger: --work-trigger play-once;
       }
 
       & .line:nth-child(1) > span {
@@ -327,7 +327,7 @@
       line-height: 1.8;
 
       animation: from-left 1.45s 0.75s var(--ease-expo-out) both;
-      animation-trigger: --work-trigger play-forwards;
+      animation-trigger: --work-trigger play-once;
     }
 
     /* --------------------------------
