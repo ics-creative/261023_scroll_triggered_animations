@@ -29,6 +29,31 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    .demo-content { display: none; }
+
+    .browser-support-message {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      min-height: 100vh;
+      margin: 0;
+      padding: 24px;
+      font-family: sans-serif;
+      line-height: 1.8;
+      text-align: center;
+    }
+
+    .browser-support-message p {
+      margin: 0;
+    }
+
+    @supports (animation-trigger: --demo play-forwards) {
+      .demo-content { display: block; }
+      .browser-support-message { display: none; }
+    }
+
     /* 行マスク。1行ずつ下から立ち上げる共通パーツ */
     .line {
       display: block;
@@ -476,6 +501,11 @@
 </head>
 
 <body>
+  <div class="browser-support-message">
+    <p lang="ja">お使いのブラウザはスクロールトリガーアニメーションに対応していません。<br>Chrome・Edge 146以上で閲覧してください。</p>
+    <p lang="en">Your browser does not support scroll trigger animations.<br>Please view this page using Chrome or Edge 146 or later.</p>
+  </div>
+  <div class="demo-content">
   <header class="intro">
     <h1 class="intro__title">
       <span class="line"><span>Flowers</span></span>
@@ -569,5 +599,6 @@
       </div>
     </section>
   </main>
+  </div>
 </body>
 </html>
