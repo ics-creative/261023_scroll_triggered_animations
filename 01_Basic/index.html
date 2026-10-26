@@ -18,8 +18,6 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    .demo-content { display: none; }
-
     .browser-support-message {
       display: flex;
       flex-direction: column;
@@ -37,59 +35,66 @@
       & p {
         margin: 0;
       }
-    }
 
-    @supports (animation-trigger: --demo play-forwards) {
-      .demo-content { display: block; }
-      .browser-support-message { display: none; }
-    }
-
-    .spacer,
-    .demo {
-      min-height: 100vh;
-    }
-
-    .spacer {
-      display: grid;
-      place-items: center;
-      background: #fff;
-
-      & .scroll-cue {
-        font-family: "Times New Roman", Times, serif;
-        font-size: 96px;
-        text-align: center;
-
-        &::after {
-          content: "";
-          display: block;
-          width: 20px;
-          height: 20px;
-          margin: 20px auto 0;
-          border-right: 3px solid currentColor;
-          border-bottom: 3px solid currentColor;
-          rotate: 45deg;
-        }
+      @supports (animation-trigger: --demo play-forwards) {
+        display: none;
       }
     }
 
-    .demo {
-      display: grid;
-      place-items: center;
-      background: #1a1a1a;
+    .demo-content {
+      display: none;
 
-      & .target {
-        color: #fff;
-        font-size: 120px;
-        font-weight: 500;
-        text-align: center;
-        opacity: 1;
-        translate: 0 0;
-        /* 要素全体が画面内に入ると有効化し、画面から完全に出ると無効化 */
-        timeline-trigger: --target view() contain / cover;
-        /* 通常の時間ベースのアニメーション */
-        animation: motion 1s var(--ease-expo-out) both;
-        /* トリガーの有効時は順再生、無効時は逆再生 */
-        animation-trigger: --target play-forwards play-backwards;
+      @supports (animation-trigger: --demo play-forwards) {
+        display: block;
+      }
+
+      & .spacer,
+      & .demo {
+        min-height: 100vh;
+      }
+
+      & .spacer {
+        display: grid;
+        place-items: center;
+        background: #fff;
+
+        & .scroll-cue {
+          font-family: "Times New Roman", Times, serif;
+          font-size: 96px;
+          text-align: center;
+
+          &::after {
+            content: "";
+            display: block;
+            width: 20px;
+            height: 20px;
+            margin: 20px auto 0;
+            border-right: 3px solid currentColor;
+            border-bottom: 3px solid currentColor;
+            rotate: 45deg;
+          }
+        }
+      }
+
+      & .demo {
+        display: grid;
+        place-items: center;
+        background: #1a1a1a;
+
+        & .target {
+          color: #fff;
+          font-size: 120px;
+          font-weight: 500;
+          text-align: center;
+          opacity: 1;
+          translate: 0 0;
+          /* 要素全体が画面内に入ると有効化し、画面から完全に出ると無効化 */
+          timeline-trigger: --target view() contain / cover;
+          /* 通常の時間ベースのアニメーション */
+          animation: motion 1s var(--ease-expo-out) both;
+          /* トリガーの有効時は順再生、無効時は逆再生 */
+          animation-trigger: --target play-forwards play-backwards;
+        }
       }
     }
 

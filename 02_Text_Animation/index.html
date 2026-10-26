@@ -29,8 +29,6 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    .demo-content { display: none; }
-
     .browser-support-message {
       display: flex;
       flex-direction: column;
@@ -47,88 +45,95 @@
       & p {
         margin: 0;
       }
+
+      @supports (animation-trigger: --demo play-forwards) {
+        display: none;
+      }
     }
 
-    @supports (animation-trigger: --demo play-forwards) {
-      .demo-content { display: block; }
-      .browser-support-message { display: none; }
-    }
+    .demo-content {
+      display: none;
 
-    .spacer,
-    .frame {
-      min-height: 100vh;
-    }
+      @supports (animation-trigger: --demo play-forwards) {
+        display: block;
+      }
 
-    .spacer {
-      display: grid;
-      place-items: center;
-      background: #fff;
+      & .spacer,
+      & .frame {
+        min-height: 100vh;
+      }
 
-      & .scroll-cue {
-        font-family: "Times New Roman", Times, serif;
-        font-size: 96px;
-        text-align: center;
+      & .spacer {
+        display: grid;
+        place-items: center;
+        background: #fff;
 
-        &::after {
-          content: "";
-          display: block;
-          width: 28px;
-          height: 28px;
-          margin: 20px auto 0;
-          border-right: 2px solid currentColor;
-          border-bottom: 2px solid currentColor;
-          rotate: 45deg;
+        & .scroll-cue {
+          font-family: "Times New Roman", Times, serif;
+          font-size: 96px;
+          text-align: center;
+
+          &::after {
+            content: "";
+            display: block;
+            width: 28px;
+            height: 28px;
+            margin: 20px auto 0;
+            border-right: 2px solid currentColor;
+            border-bottom: 2px solid currentColor;
+            rotate: 45deg;
+          }
         }
       }
-    }
 
-    .frame {
-      display: grid;
-      place-items: center;
-      padding: var(--gutter);
-      background: #1a1a1a;
-      color: #fff;
+      & .frame {
+        display: grid;
+        place-items: center;
+        padding: var(--gutter);
+        background: #1a1a1a;
+        color: #fff;
 
-      &.frame--paper {
-        background: var(--paper);
-        color: var(--ink);
-      }
-    }
+        &.frame--paper {
+          background: var(--paper);
+          color: var(--ink);
+        }
 
-    .hero {
-      /* 見出し全体が見えた位置でトリガーを有効化 */
-      timeline-trigger: --title view() contain / cover;
-      /* トリガーの参照範囲をこの要素内に限定 */
-      trigger-scope: --title;
-    }
+        & .hero {
+          /* 見出し全体が見えた位置でトリガーを有効化 */
+          timeline-trigger: --title view() contain / cover;
+          /* トリガーの参照範囲をこの要素内に限定 */
+          trigger-scope: --title;
 
-    .title {
-      display: flex;
-      justify-content: center;
-      margin: 0;
-      font-size: clamp(4.2rem, 14vw, 11rem);
-      font-weight: 500;
-      line-height: 1.2;
-    }
+          & .title {
+            display: flex;
+            justify-content: center;
+            margin: 0;
+            font-size: clamp(4.2rem, 14vw, 11rem);
+            font-weight: 500;
+            line-height: 1.2;
 
-    /* 1文字ずつのマスク。下から立ち上がる */
-    .char {
-      display: block;
-      overflow: hidden;
-      /* セリフやディセンダーのはみ出しを切らないよう余白を持たせる */
-      padding-inline: 0.08em;
-      padding-bottom: 0.15em;
-      margin-inline: -0.04em;
-      /* 兄弟順から遅延を計算し、内側のspanへ渡す */
-      animation-delay: calc((sibling-index() - 1) * 0.04s);
+            /* 1文字ずつのマスク。下から立ち上がる */
+            & .char {
+              display: block;
+              overflow: hidden;
+              /* セリフやディセンダーのはみ出しを切らないよう余白を持たせる */
+              padding-inline: 0.08em;
+              padding-bottom: 0.15em;
+              margin-inline: -0.04em;
+              /* 兄弟順から遅延を計算し、内側のspanへ渡す */
+              animation-delay: calc((sibling-index() - 1) * 0.04s);
 
-      & > span {
-        display: block;
+              & > span {
+                display: block;
 
-        /* 1文字ずつ、下から立ち上がる */
-        animation: rise 0.8s var(--ease-expo-out) both;
-        animation-trigger: --title play-once;
-        animation-delay: inherit;
+                /* 1文字ずつ、下から立ち上がる */
+                animation: rise 0.8s var(--ease-expo-out) both;
+                animation-trigger: --title play-once;
+                animation-delay: inherit;
+              }
+            }
+          }
+        }
       }
     }
 
