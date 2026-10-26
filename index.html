@@ -17,16 +17,18 @@
       padding: 24px;
       text-align: center;
 
-      & h1 {
+      h1 {
         font-size: 26px;
         color: #222222;
 
-        & span {
+        span {
           font-size: 20px;
         }
       }
 
-      & ul {
+      ul {
+        display: grid;
+        gap: 16px;
         width: max-content;
         justify-self: center;
         padding: 0;
@@ -34,12 +36,8 @@
         list-style: none;
         text-align: left;
 
-        & li {
-          & + li {
-            margin-top: 16px;
-          }
-
-          & a {
+        li {
+          a {
             color: #3f89ff;
 
             &:hover {

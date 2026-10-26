@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
 
-  <style>
+   <style>
     * {
       box-sizing: border-box;
     }
@@ -43,7 +43,7 @@
       font-size: 12px;
       line-height: 1.4;
 
-      & p {
+      p {
         margin: 0;
       }
 
@@ -54,14 +54,15 @@
 
     .demo-content {
       /* 行マスク。1行ずつ下から立ち上げる共通パーツ */
-      & .line {
+      .line {
         display: block;
         overflow: clip;
+
         /* セリフやディセンダーのはみ出しを切らないよう余白を持たせる */
         padding-inline: 0.08em;
         padding-block: 0.1em 0.18em;
 
-        & .line__inner {
+        .line__inner {
           display: block;
         }
       }
@@ -69,7 +70,7 @@
       /* --------------------------------
        * Intro
        * ----------------------------- */
-      & .intro {
+      .intro {
         display: grid;
         grid-template-rows: 1fr auto;
         min-height: 100svh;
@@ -79,7 +80,7 @@
         animation-timeline: view();
         animation-range: exit 0% exit 100%;
 
-        & .intro__title {
+        .intro__title {
           align-self: center;
           justify-self: center;
           margin: 0;
@@ -88,14 +89,14 @@
           line-height: 1.1;
           letter-spacing: -0.04em;
 
-          & .line {
-            & .line__inner {
+          .line {
+            .line__inner {
               animation: rise 1.3s 0.15s var(--ease-expo-out) both;
             }
           }
         }
 
-        & .intro__scroll {
+        .intro__scroll {
           justify-self: center;
           margin: 0;
           font-family: "Times New Roman", Times, serif;
@@ -120,7 +121,7 @@
       /* --------------------------------
        * Work
        * ----------------------------- */
-      & .work {
+      .work {
         position: relative;
         display: grid;
         grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -153,7 +154,7 @@
         /* --------------------------------
          * Visual
          * ----------------------------- */
-        & .work__visual {
+        .work__visual {
           position: relative;
           justify-self: center;
           width: 100%;
@@ -200,12 +201,13 @@
           }
 
           /* 写真を左から徐々に表示する */
-          & .work__frame {
+          .work__frame {
             position: absolute;
             inset: 0;
             overflow: clip;
 
             animation: reveal-frame 1.4s var(--ease-expo-out) both;
+
             /* トリガーの有効時は順再生。無効時は何もしない */
             animation-trigger: --work-trigger play-once;
 
@@ -225,7 +227,7 @@
              * スクロール連動のパララックスで動かす余裕を作る。
              * 移動量より一回り大きくして、端が欠けないようにする。
              */
-            & .work__image {
+            .work__image {
               position: absolute;
               inset: -36%;
               width: calc(100% + 72%);
@@ -243,7 +245,7 @@
           /* --------------------------------
            * Number
            * ----------------------------- */
-          & .work__number {
+          .work__number {
             position: absolute;
             top: -0.1em;
             left: -0.34em;
@@ -264,10 +266,10 @@
         /* --------------------------------
          * Content
          * ----------------------------- */
-        & .work__content {
+        .work__content {
           max-width: 30rem;
 
-          & .work__category {
+          .work__category {
             display: flex;
             align-items: center;
             gap: 14px;
@@ -289,34 +291,34 @@
             }
           }
 
-          & .work__title {
+          .work__title {
             margin: 0;
             font-size: clamp(3.2rem, 6.2vw, 7rem);
             font-weight: 500;
             line-height: 1;
             letter-spacing: -0.03em;
 
-            & .line {
+            .line {
               padding-block: 0.04em 0.12em;
-            }
 
-            & .line:nth-child(1) {
-              --line-delay: 0.4s;
-            }
+              &:nth-child(1) {
+                --line-delay: 0.4s;
+              }
 
-            & .line:nth-child(2) {
-              --line-delay: 0.52s;
-            }
+              &:nth-child(2) {
+                --line-delay: 0.52s;
+              }
 
-            & .line__inner {
-              /* 見出しを1行ずつ下から表示 */
-              animation: rise-focus 1.25s var(--ease-expo-out) both;
-              animation-trigger: --work-trigger play-once;
-              animation-delay: var(--line-delay);
+              .line__inner {
+                /* 見出しを1行ずつ下から表示 */
+                animation: rise-focus 1.25s var(--ease-expo-out) both;
+                animation-trigger: --work-trigger play-once;
+                animation-delay: var(--line-delay);
+              }
             }
           }
 
-          & .work__description {
+          .work__description {
             margin: 0;
             padding-left: 10px;
             color: #2c2924;
@@ -334,7 +336,6 @@
     /* --------------------------------
      * Animations
      * ----------------------------- */
-
     @keyframes intro-leave {
       from {
         opacity: 1;
@@ -376,7 +377,6 @@
      * 距離が短いほど再生時間を長くして、
      * 一瞬で終わったように見えないようにしている。
      */
-
     @keyframes from-below {
       from {
         opacity: 0;
@@ -465,7 +465,6 @@
         clip-path: inset(0);
       }
     }
-
   </style>
 </head>
 

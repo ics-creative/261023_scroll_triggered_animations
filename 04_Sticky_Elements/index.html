@@ -48,7 +48,7 @@
       font-size: 12px;
       line-height: 1.4;
 
-      & p {
+      p {
         margin: 0;
       }
 
@@ -58,7 +58,7 @@
     }
 
     .demo-content {
-      & .layout {
+      .layout {
         /* 穴の3行・2つの行間・上下の余白を合わせた高さ */
         --panel-height: 454px;
 
@@ -70,7 +70,7 @@
         /* -------------------------
            Left
         ------------------------- */
-        & .stage {
+        .stage {
           position: sticky;
           top: 0;
 
@@ -79,9 +79,10 @@
 
           height: 100vh;
 
-          & .holes {
+          .holes {
             display: grid;
             grid-template-columns: repeat(3, 100px);
+
             /* 飛び出したボールが上の列に重ならない高さを確保する */
             gap: 110px 48px;
 
@@ -90,7 +91,7 @@
             border-radius: 16px;
             background: #fff;
 
-            & .slot {
+            .slot {
               position: relative;
 
               width: 100px;
@@ -118,7 +119,7 @@
               /*
                * 穴の奥側
                */
-              & .hole {
+              .hole {
                 position: absolute;
                 z-index: 1;
                 inset: 0;
@@ -142,7 +143,7 @@
                *
                * 穴の奥側より前、穴の手前側より後ろ。
                */
-              & .ball-clip {
+              .ball-clip {
                 position: absolute;
                 z-index: 2;
                 inset: -160px 0 15px;
@@ -152,7 +153,7 @@
                 /*
                  * ボール
                  */
-                & .ball {
+                .ball {
                   position: absolute;
 
                   left: 50%;
@@ -178,6 +179,7 @@
                    */
                   &.ball--red {
                     background: var(--ball-red);
+
                     /* トリガーが有効になるたびに、頭から再生する */
                     animation-trigger: --red replay;
                   }
@@ -207,10 +209,10 @@
           }
         }
 
-        & .stories {
-          /* -------------------------
-             Right
-          ------------------------- */
+        /* -------------------------
+           Right
+        ------------------------- */
+        .stories {
           align-self: center;
           height: var(--panel-height);
           overflow-y: auto;
@@ -218,13 +220,13 @@
           background: #fff;
           border-radius: 16px;
 
-          & .story {
+          .story {
             display: grid;
             place-items: center;
 
             min-height: 100%;
 
-            & h2 {
+            h2 {
               margin: 0;
 
               font-size: clamp(2.4rem, 5vw, 4.5rem);
@@ -235,7 +237,7 @@
             }
 
             &.story--intro {
-              & h2 {
+              h2 {
                 font-family: "Times New Roman", Times, serif;
                 letter-spacing: normal;
                 text-transform: none;
@@ -254,36 +256,37 @@
             }
 
             &.story--red {
-              & h2 {
+              h2 {
                 color: var(--ball-red);
+
                 /* 色名が画面内に入ると、離れたボールを発火させる */
                 timeline-trigger: --red view() contain / cover;
               }
             }
 
             &.story--orange {
-              & h2 {
+              h2 {
                 color: var(--ball-orange);
                 timeline-trigger: --orange view() contain / cover;
               }
             }
 
             &.story--yellow {
-              & h2 {
+              h2 {
                 color: var(--text-yellow);
                 timeline-trigger: --yellow view() contain / cover;
               }
             }
 
             &.story--green {
-              & h2 {
+              h2 {
                 color: var(--ball-green);
                 timeline-trigger: --green view() contain / cover;
               }
             }
 
             &.story--blue {
-              & h2 {
+              h2 {
                 color: var(--ball-blue);
                 timeline-trigger: --blue view() contain / cover;
               }
