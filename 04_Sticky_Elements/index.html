@@ -15,6 +15,12 @@
 
     :root {
       --ease-expo-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ball-red: #e84b3c;
+      --ball-orange: #ed922d;
+      --ball-yellow: #e3c938;
+      --ball-green: #62a75b;
+      --ball-blue: #4689e8;
+      --text-yellow: #a9a603;
     }
 
     html,
@@ -171,28 +177,28 @@
                    * セクションを行き来するたびに頭から繰り返される。
                    */
                   &.ball--red {
-                    background: #e84b3c;
+                    background: var(--ball-red);
                     /* トリガーが有効になるたびに、頭から再生する */
                     animation-trigger: --red replay;
                   }
 
                   &.ball--orange {
-                    background: #ed922d;
+                    background: var(--ball-orange);
                     animation-trigger: --orange replay;
                   }
 
                   &.ball--yellow {
-                    background: #e3c938;
+                    background: var(--ball-yellow);
                     animation-trigger: --yellow replay;
                   }
 
                   &.ball--green {
-                    background: #62a75b;
+                    background: var(--ball-green);
                     animation-trigger: --green replay;
                   }
 
                   &.ball--blue {
-                    background: #4689e8;
+                    background: var(--ball-blue);
                     animation-trigger: --blue replay;
                   }
                 }
@@ -249,6 +255,7 @@
 
             &.story--red {
               & h2 {
+                color: var(--ball-red);
                 /* 色名が画面内に入ると、離れたボールを発火させる */
                 timeline-trigger: --red view() contain / cover;
               }
@@ -256,24 +263,28 @@
 
             &.story--orange {
               & h2 {
+                color: var(--ball-orange);
                 timeline-trigger: --orange view() contain / cover;
               }
             }
 
             &.story--yellow {
               & h2 {
+                color: var(--text-yellow);
                 timeline-trigger: --yellow view() contain / cover;
               }
             }
 
             &.story--green {
               & h2 {
+                color: var(--ball-green);
                 timeline-trigger: --green view() contain / cover;
               }
             }
 
             &.story--blue {
               & h2 {
+                color: var(--ball-blue);
                 timeline-trigger: --blue view() contain / cover;
               }
             }
