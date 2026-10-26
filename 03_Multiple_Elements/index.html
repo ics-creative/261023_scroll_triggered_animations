@@ -30,17 +30,18 @@
     }
 
     .browser-support-message {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 24px;
-      min-height: 100vh;
-      margin: 0;
-      padding: 24px;
+      position: fixed;
+      z-index: 100;
+      bottom: 16px;
+      left: 16px;
+      max-width: calc(100vw - 32px);
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: #fff;
+      color: #000;
       font-family: sans-serif;
-      line-height: 1.8;
-      text-align: center;
+      font-size: 12px;
+      line-height: 1.4;
 
       & p {
         margin: 0;
@@ -52,12 +53,6 @@
     }
 
     .demo-content {
-      display: none;
-
-      @supports (animation-trigger: --demo play-once) {
-        display: block;
-      }
-
       /* 行マスク。1行ずつ下から立ち上げる共通パーツ */
       & .line {
         display: block;
@@ -475,8 +470,8 @@
 
 <body>
   <div class="browser-support-message">
-    <p lang="ja">お使いのブラウザはスクロールトリガーアニメーションに対応していません。<br>Chrome・Edge 146以上で閲覧してください。</p>
-    <p lang="en">Your browser does not support scroll-triggered animations.<br>Please view this page using Chrome or Edge 146 or later.</p>
+    <p lang="ja">※Chrome・Edge 146以上で閲覧してください。</p>
+    <p lang="en">* Please view this page in Chrome or Edge 146 or later.</p>
   </div>
   <div class="demo-content">
   <header class="intro">

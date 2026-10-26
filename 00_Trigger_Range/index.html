@@ -15,16 +15,18 @@
     }
 
     .browser-support-message {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 24px;
-      min-height: 100vh;
-      padding: 24px;
+      position: fixed;
+      z-index: 100;
+      bottom: 16px;
+      left: 16px;
+      max-width: calc(100vw - 32px);
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: #fff;
+      color: #000;
       font-family: sans-serif;
-      line-height: 1.8;
-      text-align: center;
+      font-size: 12px;
+      line-height: 1.4;
 
       & p {
         margin: 0;
@@ -36,13 +38,8 @@
     }
 
     .demo-content {
-      display: none;
       position: relative;
       min-height: 220vh;
-
-      @supports (animation-trigger: --demo play-forwards) {
-        display: block;
-      }
 
       /* view(25%) が判定する中央50%の領域を表示 */
       & .active-zone {
@@ -92,8 +89,8 @@
 </head>
 <body>
   <div class="browser-support-message">
-    <p lang="ja">お使いのブラウザはスクロールトリガーアニメーションに対応していません。<br>Chrome・Edge 146以上で閲覧してください。</p>
-    <p lang="en">Your browser does not support scroll-triggered animations.<br>Please view this page using Chrome or Edge 146 or later.</p>
+    <p lang="ja">※Chrome・Edge 146以上で閲覧してください。</p>
+    <p lang="en">* Please view this page in Chrome or Edge 146 or later.</p>
   </div>
 
   <main class="demo-content" aria-label="中央の色付きエリアを通過すると形が変わる図形のデモ">
