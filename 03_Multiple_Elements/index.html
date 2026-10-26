@@ -99,10 +99,8 @@
     .intro__scroll {
       justify-self: center;
       margin: 0;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
+      font-family: "Times New Roman", Times, serif;
+      font-size: 26px;
       text-align: center;
 
       animation: from-below 1.5s 0.6s var(--ease-expo-out) both;
@@ -110,13 +108,12 @@
       &::after {
         content: "";
         display: block;
-        width: 1px;
-        height: 56px;
-        margin: 14px auto 0;
-        background: linear-gradient(var(--ink), transparent);
-        transform-origin: top;
-
-        animation: scroll-hint 2.2s 1.2s ease-in-out infinite;
+        width: 8px;
+        height: 8px;
+        margin: 5px auto 0;
+        border-right: 2px solid currentColor;
+        border-bottom: 2px solid currentColor;
+        rotate: 45deg;
       }
     }
 
@@ -147,7 +144,7 @@
       /* トリガーの参照範囲をこの要素内に限定 */
       trigger-scope: --work-trigger;
 
-      @media (width < 900px) {
+      @media (width < 640px) {
         grid-template-columns: minmax(0, 1fr);
         row-gap: clamp(40px, 7vh, 72px);
         align-content: center;
@@ -166,7 +163,7 @@
       max-width: min(44vw, 520px);
       aspect-ratio: 4 / 5;
 
-      @media (width < 900px) {
+      @media (width < 640px) {
         justify-self: start;
         max-width: min(78vw, 420px);
       }
@@ -285,6 +282,7 @@
       font-weight: 700;
       letter-spacing: 0.2em;
       text-transform: uppercase;
+      padding-left: 10px;
 
       animation: from-right 1.35s 0.3s var(--ease-expo-out) both;
       animation-trigger: --work-trigger play-once;
@@ -301,8 +299,13 @@
       margin: 0;
       font-size: clamp(3.2rem, 6.2vw, 7rem);
       font-weight: 500;
-      line-height: 1.12;
+      line-height: 1;
       letter-spacing: -0.03em;
+      
+
+      & .line {
+        padding-block: 0.04em 0.12em;
+      }
 
       & .line > span {
         /* 見出しを1行ずつ下から表示 */
@@ -320,11 +323,12 @@
     }
 
     .work__description {
-      margin: clamp(26px, 4vh, 44px) 0 0;
+      margin: 0;
+      padding-left: 10px;
       color: #2c2924;
-      font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+      font-size: clamp(1.125rem, 1.3vw, 1.25rem);
       font-weight: 500;
-      line-height: 1.8;
+      line-height: 1.6;
 
       animation: from-left 1.45s 0.75s var(--ease-expo-out) both;
       animation-trigger: --work-trigger play-once;
@@ -424,24 +428,6 @@
       }
     }
 
-    @keyframes scroll-hint {
-      0% {
-        opacity: 0;
-        scale: 1 0.1;
-      }
-
-      40% {
-        opacity: 1;
-        scale: 1 1;
-      }
-
-      100% {
-        opacity: 0;
-        scale: 1 0.1;
-        translate: 0 50px;
-      }
-    }
-
     /* 右の辺を 100% 削った状態から、左の辺を起点に開く */
     @keyframes reveal-frame {
       from {
@@ -506,8 +492,8 @@
         <div class="work__frame">
           <img
             class="work__image"
-            src="images/zoe-richardson-oy7NjnG-CK4-unsplash.jpg"
-            alt="Pink and yellow tulips against a pale background"
+            src="images/flower_1.jpg"
+            alt="White tulips in soft sunlight"
           >
         </div>
 
@@ -534,8 +520,8 @@
         <div class="work__frame">
           <img
             class="work__image"
-            src="images/jason-leung-7R9f3MBCdTM-unsplash.jpg"
-            alt="Cream tulips catching afternoon light"
+            src="images/flower_2.jpg"
+            alt="Yellow and peach tulips catching sunlight"
           >
         </div>
 
@@ -562,8 +548,8 @@
         <div class="work__frame">
           <img
             class="work__image"
-            src="images/andrey-petrov-uWcDA6wfB5Q-unsplash.jpg"
-            alt="A quiet cluster of white tulips"
+            src="images/flower_3.jpg"
+            alt="Pink tulips blooming in a garden"
           >
         </div>
 

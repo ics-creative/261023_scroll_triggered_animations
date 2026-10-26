@@ -72,8 +72,20 @@
       cursor: pointer;
 
       & input {
+        width: 18px;
+        height: 18px;
         margin: 0;
         accent-color: #111;
+      }
+
+      & .boundary-toggle__text {
+        display: grid;
+        gap: 2px;
+      }
+
+      & .boundary-toggle__translation {
+        color: #666;
+        font-size: 11px;
       }
     }
 
@@ -127,7 +139,7 @@
       display: grid;
       justify-content: center;
       grid-template-columns: auto minmax(10rem, 18vw);
-      column-gap: 5vw;
+      column-gap: 2.5vw;
     }
 
     /* -------------------------
@@ -316,6 +328,23 @@
         text-transform: lowercase;
       }
 
+      &.story--intro h2 {
+        font-family: "Times New Roman", Times, serif;
+        letter-spacing: normal;
+        text-transform: none;
+
+        &::after {
+          content: "";
+          display: block;
+          width: 20px;
+          height: 20px;
+          margin: 20px auto 0;
+          border-right: 2px solid currentColor;
+          border-bottom: 2px solid currentColor;
+          rotate: 45deg;
+        }
+      }
+
       &.story--red {
         /* entry 40%：上端が画面下から40%に来る位置 */
         /* exit 20%：下端が画面下から20%に来る位置 */
@@ -352,7 +381,10 @@
 
   <label class="boundary-toggle">
     <input id="show-boundaries" type="checkbox">
-    境界線と目印を表示
+    <span class="boundary-toggle__text">
+      <span>境界線と目印を表示</span>
+      <span class="boundary-toggle__translation" lang="en">Show guides</span>
+    </span>
   </label>
 
   <div class="range-guides" aria-hidden="true">
@@ -424,8 +456,8 @@
 
     <div class="stories">
 
-      <section class="story">
-        <h2>hole</h2>
+      <section class="story story--intro">
+        <h2>Scroll</h2>
       </section>
 
       <section class="story story--red">

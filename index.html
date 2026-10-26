@@ -10,7 +10,6 @@
     }
 
     main {
-      min-height: 100vh;
       box-sizing: border-box;
       display: grid;
       place-content: center;
@@ -30,11 +29,27 @@
     li + li {
       margin-top: 16px;
     }
+
+    h1 {
+      font-size: 26px;
+      color: #222222;
+
+      span {
+        font-size: 20px;
+      }
+    }
+    a {
+      color: #3f89ff;
+
+      &:hover {
+        color: #175bc9;
+      }
+    }
   </style>
 </head>
 <body>
   <main>
-    <h1>CSSスクロールトリガーアニメーション</h1>
+    <h1>CSSスクロールトリガーアニメーション<br><span>Scroll-triggered Animations</span></h1>
 
     <ul>
       <li>
