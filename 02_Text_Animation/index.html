@@ -106,27 +106,27 @@
             font-size: clamp(4.2rem, 14vw, 11rem);
             font-weight: 500;
             line-height: 1.2;
+          }
 
-            /* 1文字ずつのマスク。下から立ち上がる */
-            & .char {
-              display: block;
-              overflow: clip;
-              /* セリフやディセンダーのはみ出しを切らないよう余白を持たせる */
-              padding-inline: 0.08em;
-              padding-bottom: 0.15em;
-              margin-inline: -0.04em;
-              /* 兄弟順から遅延を計算し、内側のspanへ渡す */
-              animation-delay: calc((sibling-index() - 1) * 0.04s);
+          /* 1文字ずつのマスク。下から立ち上がる */
+          & .char {
+            display: block;
+            overflow: clip;
+            /* セリフやディセンダーのはみ出しを切らないよう余白を持たせる */
+            padding-inline: 0.08em;
+            padding-bottom: 0.15em;
+            margin-inline: -0.04em;
+            /* 兄弟順から遅延を計算し、内側のspanへ渡す */
+            animation-delay: calc((sibling-index() - 1) * 0.04s);
+          }
 
-              & > span {
-                display: block;
+          & .char__inner {
+            display: block;
 
-                /* 1文字ずつ、下から立ち上がる */
-                animation: rise 0.8s var(--ease-expo-out) both;
-                animation-trigger: --title play-once;
-                animation-delay: inherit;
-              }
-            }
+            /* 1文字ずつ、下から立ち上がる */
+            animation: rise 0.8s var(--ease-expo-out) both;
+            animation-trigger: --title play-once;
+            animation-delay: inherit;
           }
         }
       }
@@ -152,15 +152,15 @@
   <section class="frame">
     <div class="hero">
       <h1 class="title" aria-label="Animation">
-        <span class="char"><span>A</span></span>
-        <span class="char"><span>n</span></span>
-        <span class="char"><span>i</span></span>
-        <span class="char"><span>m</span></span>
-        <span class="char"><span>a</span></span>
-        <span class="char"><span>t</span></span>
-        <span class="char"><span>i</span></span>
-        <span class="char"><span>o</span></span>
-        <span class="char"><span>n</span></span>
+        <span class="char"><span class="char__inner">A</span></span>
+        <span class="char"><span class="char__inner">n</span></span>
+        <span class="char"><span class="char__inner">i</span></span>
+        <span class="char"><span class="char__inner">m</span></span>
+        <span class="char"><span class="char__inner">a</span></span>
+        <span class="char"><span class="char__inner">t</span></span>
+        <span class="char"><span class="char__inner">i</span></span>
+        <span class="char"><span class="char__inner">o</span></span>
+        <span class="char"><span class="char__inner">n</span></span>
       </h1>
     </div>
   </section>
@@ -168,13 +168,13 @@
   <section class="frame frame--paper">
     <div class="hero">
       <h1 class="title" aria-label="Trigger">
-        <span class="char"><span>T</span></span>
-        <span class="char"><span>r</span></span>
-        <span class="char"><span>i</span></span>
-        <span class="char"><span>g</span></span>
-        <span class="char"><span>g</span></span>
-        <span class="char"><span>e</span></span>
-        <span class="char"><span>r</span></span>
+        <span class="char"><span class="char__inner">T</span></span>
+        <span class="char"><span class="char__inner">r</span></span>
+        <span class="char"><span class="char__inner">i</span></span>
+        <span class="char"><span class="char__inner">g</span></span>
+        <span class="char"><span class="char__inner">g</span></span>
+        <span class="char"><span class="char__inner">e</span></span>
+        <span class="char"><span class="char__inner">r</span></span>
       </h1>
     </div>
   </section>

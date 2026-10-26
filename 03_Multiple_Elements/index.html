@@ -61,7 +61,7 @@
         padding-inline: 0.08em;
         padding-block: 0.1em 0.18em;
 
-        & > span {
+        & .line__inner {
           display: block;
         }
       }
@@ -89,7 +89,7 @@
           letter-spacing: -0.04em;
 
           & .line {
-            & > span {
+            & .line__inner {
               animation: rise 1.3s 0.15s var(--ease-expo-out) both;
             }
           }
@@ -298,20 +298,21 @@
 
             & .line {
               padding-block: 0.04em 0.12em;
+            }
 
-              & > span {
-                /* 見出しを1行ずつ下から表示 */
-                animation: rise-focus 1.25s var(--ease-expo-out) both;
-                animation-trigger: --work-trigger play-once;
-              }
+            & .line:nth-child(1) {
+              --line-delay: 0.4s;
+            }
 
-              &:nth-child(1) > span {
-                animation-delay: 0.4s;
-              }
+            & .line:nth-child(2) {
+              --line-delay: 0.52s;
+            }
 
-              &:nth-child(2) > span {
-                animation-delay: 0.52s;
-              }
+            & .line__inner {
+              /* 見出しを1行ずつ下から表示 */
+              animation: rise-focus 1.25s var(--ease-expo-out) both;
+              animation-trigger: --work-trigger play-once;
+              animation-delay: var(--line-delay);
             }
           }
 
@@ -476,7 +477,7 @@
   <div class="demo-content">
   <header class="intro">
     <h1 class="intro__title">
-      <span class="line"><span>Flowers</span></span>
+      <span class="line"><span class="line__inner">Flowers</span></span>
     </h1>
 
     <p class="intro__scroll">Scroll</p>
@@ -500,8 +501,8 @@
         <p class="work__category">Brand Identity</p>
 
         <h2 class="work__title">
-          <span class="line"><span>Form &amp;</span></span>
-          <span class="line"><span>Function</span></span>
+          <span class="line"><span class="line__inner">Form &amp;</span></span>
+          <span class="line"><span class="line__inner">Function</span></span>
         </h2>
 
         <p class="work__description">
@@ -528,8 +529,8 @@
         <p class="work__category">Digital Experience</p>
 
         <h2 class="work__title">
-          <span class="line"><span>Light &amp;</span></span>
-          <span class="line"><span>Motion</span></span>
+          <span class="line"><span class="line__inner">Light &amp;</span></span>
+          <span class="line"><span class="line__inner">Motion</span></span>
         </h2>
 
         <p class="work__description">
@@ -556,8 +557,8 @@
         <p class="work__category">Photography</p>
 
         <h2 class="work__title">
-          <span class="line"><span>Quiet</span></span>
-          <span class="line"><span>Hours</span></span>
+          <span class="line"><span class="line__inner">Quiet</span></span>
+          <span class="line"><span class="line__inner">Hours</span></span>
         </h2>
 
         <p class="work__description">
