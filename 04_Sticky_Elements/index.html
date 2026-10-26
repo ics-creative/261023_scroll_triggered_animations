@@ -23,7 +23,7 @@
     }
 
     body {
-      background: #f2f0e9;
+      background: #f5f5f5;
       color: #111;
       font-family: "Cormorant Garamond", "Times New Roman", Times, serif;
     }
@@ -52,88 +52,10 @@
     }
 
     .demo-content {
-      & .boundary-toggle {
-        position: fixed;
-        z-index: 10;
-        top: 16px;
-        right: 16px;
-
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 8px 12px;
-
-        border: 1px solid #b6b3aa;
-        border-radius: 8px;
-        background: #fff;
-        font: 14px sans-serif;
-        cursor: pointer;
-
-        & input {
-          width: 18px;
-          height: 18px;
-          margin: 0;
-          accent-color: #111;
-        }
-
-        & .boundary-toggle__text {
-          display: grid;
-          gap: 2px;
-
-          & .boundary-toggle__translation {
-            color: #666;
-            font-size: 11px;
-          }
-        }
-      }
-
-      &:has(#show-boundaries:checked) .story {
-        outline: 2px dashed #986828;
-        outline-offset: -2px;
-      }
-
-      & .range-guides {
-        position: fixed;
-        z-index: 9;
-        inset: 0;
-        display: none;
-        pointer-events: none;
-
-        & .range-guide {
-          position: absolute;
-          right: 0;
-          left: 0;
-          border-top: 2px dashed var(--guide-color);
-
-          & span {
-            position: absolute;
-            top: 4px;
-            right: 16px;
-            padding: 3px 6px;
-            border-radius: 4px;
-            background: #fff;
-            color: var(--guide-color);
-            font: 700 12px/1.2 sans-serif;
-          }
-
-          /* .story は画面以上の高さなので、上端と下端が通る位置を示せる */
-          &.range-guide--entry {
-            top: 60%;
-            --guide-color: #216b4a;
-          }
-
-          &.range-guide--exit {
-            top: 80%;
-            --guide-color: #a34232;
-          }
-        }
-      }
-
-      &:has(#show-boundaries:checked) .range-guides {
-        display: block;
-      }
-
       & .layout {
+        /* 穴の3行・2つの行間・上下の余白を合わせた高さ */
+        --panel-height: 454px;
+
         display: grid;
         justify-content: center;
         grid-template-columns: auto minmax(10rem, 18vw);
@@ -157,6 +79,7 @@
             /* 飛び出したボールが上の列に重ならない高さを確保する */
             gap: 110px 48px;
 
+            height: var(--panel-height);
             padding: 88px 64px 56px;
             border-radius: 16px;
             background: #fff;
@@ -282,11 +205,18 @@
           /* -------------------------
              Right
           ------------------------- */
+          align-self: center;
+          height: var(--panel-height);
+          overflow-y: auto;
+          overscroll-behavior-y: contain;
+          background: #fff;
+          border-radius: 16px;
+
           & .story {
             display: grid;
             place-items: center;
 
-            min-height: 100vh;
+            min-height: 100%;
 
             & h2 {
               margin: 0;
@@ -298,44 +228,54 @@
               text-transform: lowercase;
             }
 
-            &.story--intro h2 {
-              font-family: "Times New Roman", Times, serif;
-              letter-spacing: normal;
-              text-transform: none;
+            &.story--intro {
+              & h2 {
+                font-family: "Times New Roman", Times, serif;
+                letter-spacing: normal;
+                text-transform: none;
 
-              &::after {
-                content: "";
-                display: block;
-                width: 20px;
-                height: 20px;
-                margin: 20px auto 0;
-                border-right: 2px solid currentColor;
-                border-bottom: 2px solid currentColor;
-                rotate: 45deg;
+                &::after {
+                  content: "";
+                  display: block;
+                  width: 20px;
+                  height: 20px;
+                  margin: 20px auto 0;
+                  border-right: 2px solid currentColor;
+                  border-bottom: 2px solid currentColor;
+                  rotate: 45deg;
+                }
               }
             }
 
             &.story--red {
-              /* entry 40%：上端が画面下から40%に来る位置 */
-              /* exit 20%：下端が画面下から20%に来る位置 */
-              /* この範囲に入ると有効、出ると無効。戻って入れば再び有効 */
-              timeline-trigger: --red view() entry 40% exit 20%;
+              & h2 {
+                /* 色名が画面内に入ると、離れたボールを発火させる */
+                timeline-trigger: --red view() contain / cover;
+              }
             }
 
             &.story--orange {
-              timeline-trigger: --orange view() entry 40% exit 20%;
+              & h2 {
+                timeline-trigger: --orange view() contain / cover;
+              }
             }
 
             &.story--yellow {
-              timeline-trigger: --yellow view() entry 40% exit 20%;
+              & h2 {
+                timeline-trigger: --yellow view() contain / cover;
+              }
             }
 
             &.story--green {
-              timeline-trigger: --green view() entry 40% exit 20%;
+              & h2 {
+                timeline-trigger: --green view() contain / cover;
+              }
             }
 
             &.story--blue {
-              timeline-trigger: --blue view() entry 40% exit 20%;
+              & h2 {
+                timeline-trigger: --blue view() contain / cover;
+              }
             }
           }
         }
@@ -375,20 +315,6 @@
     <p lang="en">* Please view this page in Chrome or Edge 146 or later.</p>
   </div>
   <div class="demo-content">
-
-  <label class="boundary-toggle">
-    <input id="show-boundaries" type="checkbox">
-    <span class="boundary-toggle__text">
-      <span>境界線と目印を表示</span>
-      <span class="boundary-toggle__translation" lang="en">Show guides</span>
-    </span>
-  </label>
-
-  <div class="range-guides" aria-hidden="true">
-    <div class="range-guide range-guide--entry"><span>entry 40%：上端</span></div>
-    <div class="range-guide range-guide--exit"><span>exit 20%：下端</span></div>
-  </div>
-
   <main class="layout">
 
     <div class="stage">
