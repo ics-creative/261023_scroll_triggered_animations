@@ -15,7 +15,7 @@
 
     :root {
       --paper: #fff;
-      --ink: #171717;
+      --ink: #222;
       --gutter: clamp(24px, 4vw, 64px);
       --ease-expo-out: cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -34,8 +34,8 @@
 
       &::-webkit-scrollbar-thumb {
         border: 3px solid #f5f5f5;
-        border-radius: 999px;
-        background: #b8b8b8;
+        border-radius: 100vh;
+        background: #888;
       }
     }
 
@@ -45,9 +45,9 @@
       background: var(--paper);
       color: var(--ink);
       font-family: "Cormorant Garamond", "Times New Roman", Times, serif;
-      -webkit-font-smoothing: antialiased;
     }
 
+    /* 未対応ブラウザ向けメッセージ */
     .browser-support-message {
       position: fixed;
       z-index: 100;
@@ -83,7 +83,6 @@
         background: #fff;
 
         .scroll-cue {
-          font-family: "Times New Roman", Times, serif;
           font-size: 96px;
           text-align: center;
 
@@ -104,7 +103,7 @@
         display: grid;
         place-items: center;
         padding: var(--gutter);
-        background: #1a1a1a;
+        background: #222;
         color: #fff;
 
         &.frame--paper {
@@ -124,8 +123,6 @@
             justify-content: center;
             margin: 0;
             font-size: clamp(4.2rem, 14vw, 11rem);
-            font-weight: 500;
-            line-height: 1.2;
           }
 
           /* 1文字ずつのマスク。下から立ち上がる */
@@ -137,7 +134,7 @@
             padding-bottom: 0.15em;
             margin-inline: -0.04em;
             /* 兄弟順から遅延を計算し、内側のspanへ渡す */
-            animation-delay: calc((sibling-index() - 1) * 0.04s);
+            animation-delay: calc((sibling-index() - 1) * 0.05s);
 
             .char__inner {
               display: block;
@@ -172,15 +169,15 @@
   <section class="frame">
     <div class="hero">
       <h1 class="title" aria-label="Animation">
-        <span class="char"><span class="char__inner">A</span></span>
-        <span class="char"><span class="char__inner">n</span></span>
-        <span class="char"><span class="char__inner">i</span></span>
-        <span class="char"><span class="char__inner">m</span></span>
-        <span class="char"><span class="char__inner">a</span></span>
-        <span class="char"><span class="char__inner">t</span></span>
-        <span class="char"><span class="char__inner">i</span></span>
-        <span class="char"><span class="char__inner">o</span></span>
-        <span class="char"><span class="char__inner">n</span></span>
+        <span class="char" aria-hidden="true" translate="no"><span class="char__inner">A</span></span>
+        <span class="char" aria-hidden="true" translate="no"><span class="char__inner">n</span></span>
+        <span class="char" aria-hidden="true" translate="no"><span class="char__inner">i</span></span>
+        <span class="char" aria-hidden="true" translate="no"><span class="char__inner">m</span></span>
+        <span class="char" aria-hidden="true" translate="no"><span class="char__inner">a</span></span>
+        <span class="char" aria-hidden="true" translate="no"><span class="char__inner">t</span></span>
+        <span class="char" aria-hidden="true" translate="no"><span class="char__inner">i</span></span>
+        <span class="char" aria-hidden="true" translate="no"><span class="char__inner">o</span></span>
+        <span class="char" aria-hidden="true" translate="no"><span class="char__inner">n</span></span>
       </h1>
     </div>
   </section>
@@ -188,13 +185,13 @@
   <section class="frame frame--paper">
     <div class="hero">
       <h1 class="title" aria-label="Trigger">
-        <span class="char"><span class="char__inner">T</span></span>
-        <span class="char"><span class="char__inner">r</span></span>
-        <span class="char"><span class="char__inner">i</span></span>
-        <span class="char"><span class="char__inner">g</span></span>
-        <span class="char"><span class="char__inner">g</span></span>
-        <span class="char"><span class="char__inner">e</span></span>
-        <span class="char"><span class="char__inner">r</span></span>
+        <span class="char" aria-hidden="true" translate="no"><span class="char__inner">T</span></span>
+        <span class="char" aria-hidden="true" translate="no"><span class="char__inner">r</span></span>
+        <span class="char" aria-hidden="true" translate="no"><span class="char__inner">i</span></span>
+        <span class="char" aria-hidden="true" translate="no"><span class="char__inner">g</span></span>
+        <span class="char" aria-hidden="true" translate="no"><span class="char__inner">g</span></span>
+        <span class="char" aria-hidden="true" translate="no"><span class="char__inner">e</span></span>
+        <span class="char" aria-hidden="true" translate="no"><span class="char__inner">r</span></span>
       </h1>
     </div>
   </section>

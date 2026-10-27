@@ -15,7 +15,7 @@
 
     :root {
       --paper: #f5f5f5;
-      --ink: #171717;
+      --ink: #222;
       --gutter: clamp(24px, 4vw, 64px);
       --ease-expo-out: cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -25,7 +25,7 @@
       scrollbar-gutter: stable;
 
       &::-webkit-scrollbar {
-        width: 32px;
+        width: 24px;
       }
 
       &::-webkit-scrollbar-track {
@@ -45,7 +45,6 @@
       background: var(--paper);
       color: var(--ink);
       font-family: "Cormorant Garamond", "Times New Roman", Times, serif;
-      -webkit-font-smoothing: antialiased;
     }
 
     .browser-support-message {
@@ -106,13 +105,10 @@
           justify-self: center;
           margin: 0;
           font-size: clamp(4.2rem, 11vw, 10rem);
-          font-weight: 500;
-          line-height: 1.1;
-          letter-spacing: -0.04em;
 
           .line {
             .line__inner {
-              animation: rise 1.3s 0.15s var(--ease-expo-out) both;
+              animation: rise 1.3s 0.1s var(--ease-expo-out) both;
             }
           }
         }
@@ -120,7 +116,6 @@
         .intro__scroll {
           justify-self: center;
           margin: 0;
-          font-family: "Times New Roman", Times, serif;
           font-size: 26px;
           text-align: center;
 
@@ -132,8 +127,8 @@
             width: 8px;
             height: 8px;
             margin: 5px auto 0;
-            border-right: 2px solid currentColor;
-            border-bottom: 2px solid currentColor;
+            border-right: 1px solid currentColor;
+            border-bottom: 1px solid currentColor;
             rotate: 45deg;
           }
         }
@@ -201,22 +196,22 @@
             inset: 0;
             pointer-events: none;
 
-            animation-duration: 1.35s;
+            animation-duration: 1.3s;
             animation-timing-function: var(--ease-expo-out);
             animation-fill-mode: both;
             animation-trigger: --work-trigger play-once;
           }
 
           &::before {
-            border-top: 1px solid #171717;
-            border-left: 1px solid #171717;
+            border-top: 1px solid #111;
+            border-left: 1px solid #111;
             animation-name: border-from-tl;
             animation-delay: 0.2s;
           }
 
           &::after {
-            border-right: 1px solid #171717;
-            border-bottom: 1px solid #171717;
+            border-right: 1px solid #111;
+            border-bottom: 1px solid #111;
             animation-name: border-from-br;
             animation-delay: 0.3s;
           }
@@ -269,14 +264,13 @@
           .work__number {
             position: absolute;
             top: -0.1em;
-            left: -0.34em;
+            left: -0.4em;
             z-index: 2;
 
             color: #fff;
             font-size: clamp(4.6rem, 9vw, 10rem);
-            font-weight: 700;
+            font-weight: bold;
             line-height: 1;
-            letter-spacing: -0.07em;
             mix-blend-mode: difference;
 
             animation: from-above 1.8s 0.15s var(--ease-expo-out) both;
@@ -296,12 +290,11 @@
             gap: 14px;
             margin: 0 0 clamp(20px, 3vh, 32px);
             font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 0.2em;
+            font-weight: bold;
             text-transform: uppercase;
             padding-left: 10px;
 
-            animation: from-right 1.35s 0.3s var(--ease-expo-out) both;
+            animation: from-right 1.3s 0.3s var(--ease-expo-out) both;
             animation-trigger: --work-trigger play-once;
 
             &::before {
@@ -315,24 +308,20 @@
           .work__title {
             margin: 0;
             font-size: clamp(3.2rem, 6.2vw, 7rem);
-            font-weight: 500;
             line-height: 1;
-            letter-spacing: -0.03em;
 
             .line {
-              padding-block: 0.04em 0.12em;
-
               &:nth-child(1) {
                 --line-delay: 0.4s;
               }
 
               &:nth-child(2) {
-                --line-delay: 0.52s;
+                --line-delay: 0.5s;
               }
 
               .line__inner {
                 /* 見出しを1行ずつ下から表示 */
-                animation: rise-focus 1.25s var(--ease-expo-out) both;
+                animation: rise-focus 1.2s var(--ease-expo-out) both;
                 animation-trigger: --work-trigger play-once;
                 animation-delay: var(--line-delay);
               }
@@ -342,12 +331,10 @@
           .work__description {
             margin: 0;
             padding-left: 10px;
-            color: #2c2924;
-            font-size: clamp(1.125rem, 1.3vw, 1.25rem);
-            font-weight: 500;
+            color: #222;
+            font-size: clamp(1.1rem, 1.3vw, 1.2rem);
             line-height: 1.6;
-
-            animation: from-left 1.45s 0.75s var(--ease-expo-out) both;
+            animation: from-left 1.4s 0.7s var(--ease-expo-out) both;
             animation-trigger: --work-trigger play-once;
           }
         }

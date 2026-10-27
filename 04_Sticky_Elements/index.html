@@ -15,12 +15,12 @@
 
     :root {
       --ease-expo-out: cubic-bezier(0.16, 1, 0.3, 1);
-      --ball-red: #e84b3c;
-      --ball-orange: #ed922d;
-      --ball-yellow: #e3c938;
-      --ball-green: #62a75b;
-      --ball-blue: #4689e8;
-      --text-yellow: #a9a603;
+      --ball-red: orangered;
+      --ball-orange: orange;
+      --ball-yellow: gold;
+      --ball-green: seagreen;
+      --ball-blue: royalblue;
+      --text-yellow: goldenrod;
     }
 
     html,
@@ -112,7 +112,7 @@
                 inset: 0;
 
                 border-radius: 50%;
-                background: #181818;
+                background: #222;
 
                 clip-path: inset(50% 0 0);
               }
@@ -129,7 +129,7 @@
                 height: 30px;
 
                 border-radius: 50%;
-                background: #181818;
+                background: #222;
               }
 
               /*
@@ -233,13 +233,13 @@
           }
 
           &::-webkit-scrollbar-track {
-            background: #ebebeb;
+            background: #eee;
           }
 
           &::-webkit-scrollbar-thumb {
-            border: 3px solid #ebebeb;
-            border-radius: 999px;
-            background: #afafaf;
+            border: 3px solid #eee;
+            border-radius: 100vh;
+            background: #ccc;
           }
 
           .story {
@@ -250,20 +250,11 @@
 
             h2 {
               margin: 0;
-
-              font-size: clamp(2.4rem, 5vw, 4.5rem);
-              font-weight: 500;
-              line-height: .9;
-              letter-spacing: .06em;
-              text-transform: lowercase;
+              font-size: 48px;
             }
 
             &.story--intro {
               h2 {
-                font-family: "Times New Roman", Times, serif;
-                letter-spacing: normal;
-                text-transform: none;
-
                 &::after {
                   content: "";
                   display: block;
@@ -334,7 +325,7 @@
 
       50% {
         translate: -50% -10px;
-        animation-timing-function: cubic-bezier(0.7, 0, 0.84, 0);
+        animation-timing-function: cubic-bezier(0.7, 0, 0.8, 0);
       }
 
       100% {
