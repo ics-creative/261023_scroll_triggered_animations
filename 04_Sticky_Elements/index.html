@@ -59,8 +59,8 @@
 
     .demo-content {
       .layout {
-        /* 穴の3行・2つの行間・上下の余白を合わせた高さ */
-        --panel-height: 454px;
+        /* 画面が低いときは上下に12pxずつ余白を残す */
+        --panel-height: min(454px, calc(100dvh - 24px));
 
         display: grid;
         justify-content: center;
@@ -77,14 +77,15 @@
           display: grid;
           place-items: center;
 
-          height: 100vh;
+          height: 100dvh;
 
           .holes {
             display: grid;
             grid-template-columns: repeat(3, 100px);
 
-            /* 飛び出したボールが上の列に重ならない高さを確保する */
-            gap: 110px 48px;
+            /* 画面高に応じて行間を縮め、飛び出すボールの空間を保つ */
+            column-gap: 48px;
+            align-content: space-between;
 
             height: var(--panel-height);
             padding: 88px 64px 56px;
