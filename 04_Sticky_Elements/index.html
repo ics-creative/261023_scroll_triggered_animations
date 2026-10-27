@@ -212,13 +212,34 @@
         /* -------------------------
            Right
         ------------------------- */
-        .stories {
+        .stories-frame {
           align-self: center;
           height: var(--panel-height);
-          overflow-y: auto;
+          overflow: clip;
+          border-radius: 16px;
+          background: #fff;
+        }
+
+        .stories {
+          height: 100%;
+          overflow-y: scroll;
+          scrollbar-gutter: stable;
           overscroll-behavior-y: contain;
           background: #fff;
-          border-radius: 16px;
+
+          &::-webkit-scrollbar {
+            width: 20px;
+          }
+
+          &::-webkit-scrollbar-track {
+            background: #ebebeb;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            border: 3px solid #ebebeb;
+            border-radius: 999px;
+            background: #afafaf;
+          }
 
           .story {
             display: grid;
@@ -391,32 +412,34 @@
     </div>
 
 
-    <div class="stories">
+    <div class="stories-frame">
+      <div class="stories">
 
-      <section class="story story--intro">
-        <h2>Scroll</h2>
-      </section>
+        <section class="story story--intro">
+          <h2>Scroll</h2>
+        </section>
 
-      <section class="story story--red">
-        <h2>Red</h2>
-      </section>
+        <section class="story story--red">
+          <h2>Red</h2>
+        </section>
 
-      <section class="story story--orange">
-        <h2>Orange</h2>
-      </section>
+        <section class="story story--orange">
+          <h2>Orange</h2>
+        </section>
 
-      <section class="story story--yellow">
-        <h2>Yellow</h2>
-      </section>
+        <section class="story story--yellow">
+          <h2>Yellow</h2>
+        </section>
 
-      <section class="story story--green">
-        <h2>Green</h2>
-      </section>
+        <section class="story story--green">
+          <h2>Green</h2>
+        </section>
 
-      <section class="story story--blue">
-        <h2>Blue</h2>
-      </section>
+        <section class="story story--blue">
+          <h2>Blue</h2>
+        </section>
 
+      </div>
     </div>
 
   </main>
